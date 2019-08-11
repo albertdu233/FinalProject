@@ -43,7 +43,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Boolean checkUser(String username){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("Select * from user where username=?", new String[]{username});
-        if(cursor.getCount()>0) return false; //if it is =0; it means the email does not exist.
+        if(cursor.getCount()>0) return false; //if it is =0; it means the username does not exist.
         else return true;
+    }
+    //checking the email and password
+    public Boolean checkEmailAndPassword(String email, String password){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("Select * from user where email=? and password=?", new String[]{email, password});
+        if(cursor.getCount()>0) return true; //if it is =0; it means the email and password does not match;
+        else return false;
+    }
+
+    public User getUser(String email){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("Select * from user where email=? ",new String[]{email});
+        if(cursor != null && cursor.moveToFirst() ){
+            String em = cursor.getString(0);
+            String un = cursor.getString(1);
+            String pw = cursor.getString(2);
+            return new User(em,un,pw);
+        }
+      return null;
     }
 }

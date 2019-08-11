@@ -1,24 +1,14 @@
 package com.example.finalproject;
 
 public class User {
-    private int id;
     private String username;
     private String password;
     private String email;
 
-    public User(int uid, String uname, String pword, String mail){
-        this.id = uid;
+    public User(String mail,String uname, String pword ){
         this.username = uname;
         this.password = pword;
         this.email = mail;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getUsername() {
