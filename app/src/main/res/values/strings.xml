@@ -11,4 +11,6 @@
     <string name="str_email">Email</string>
     <string name="str_retype">Retype password</string>
     <string name="str_apply">Apply</string>
+    <string name="str_save">Save</string>
+    <string name="str_signout">Sign Out</string>
 </resources>
