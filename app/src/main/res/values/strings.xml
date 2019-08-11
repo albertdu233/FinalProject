@@ -8,4 +8,7 @@
     <string name="str_rank">Rank</string>
     <string name="str_help">Help</string>
     <string name="str_about">About us</string>
+    <string name="str_email">Email</string>
+    <string name="str_retype">Retype password</string>
+    <string name="str_apply">Apply</string>
 </resources>

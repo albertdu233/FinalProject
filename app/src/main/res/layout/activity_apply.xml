@@ -3,53 +3,59 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <EditText
+        android:id="@+id/txt_apply_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme" />
-
-    <Button
-        android:id="@+id/btn_play"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/mybutton"
-        android:text="@string/str_play" />
-
-    <Button
-        android:id="@+id/btn_rank"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/str_username"
         android:layout_marginStart="20dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="20dp"
-        android:background="@drawable/mybutton"
-        android:text="@string/str_rank" />
+        android:inputType="textPersonName" />
 
-    <Button
-        android:id="@+id/btn_aboutus"
+    <EditText
+        android:id="@+id/txt_apply_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/str_email"
         android:layout_marginStart="20dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="20dp"
-        android:background="@drawable/mybutton"
-        android:text="@string/str_about" />
+        android:inputType="textEmailAddress" />
 
-    <Button
-        android:id="@+id/btn_help"
+    <EditText
+        android:id="@+id/txt_apply_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/str_password"
         android:layout_marginStart="20dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="10dp"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/txt_apply_retype"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/str_retype"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/btn_apply"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@drawable/mybutton"
-        android:text="@string/str_help" />
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/str_apply" />
 
 </LinearLayout>
