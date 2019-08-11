@@ -4,6 +4,17 @@
     android:layout_height="match_parent">
 
     <EditText
+        android:id="@+id/txt_apply_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
+        android:ems="10"
+        android:hint="@string/str_email"
+        android:inputType="textEmailAddress" />
+
+    <EditText
         android:id="@+id/txt_apply_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,17 +24,6 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="20dp"
         android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/txt_apply_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/str_email"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="20dp"
-        android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/txt_apply_password"
