@@ -13,7 +13,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //function for create the table
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("Create table user(email text primary key, username, text, password text)");
+        db.execSQL("Create table user(email text primary key, username text, password text)");
     }
     //function for upgrade the table
     @Override

@@ -12,27 +12,5 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
-    private DatabaseHelper db;
-    private ArrayList<String> emailList;
-    private Button m_btnLogin;
-    private Button m_btnSignup;
-    private EditText m_password;
-    private EditText m_email;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signin);
-        db = new DatabaseHelper(this);
-        m_btnLogin = (Button) findViewById(R.id.btn_login);
-        m_btnSignup = (Button) findViewById(R.id.btn_signup);
-        m_email = (EditText) findViewById(R.id.signin_txt_email);
-        m_password = (EditText) findViewById(R.id.signin_txt_password);
 
-        m_btnLogin.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-
-            }
-        });
-    }
 }
