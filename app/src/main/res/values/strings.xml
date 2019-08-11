@@ -4,4 +4,8 @@
     <string name="str_password">Password</string>
     <string name="str_login">Log In</string>
     <string name="str_signup">Sign Up</string>
+    <string name="str_play">Play</string>
+    <string name="str_rank">Rank</string>
+    <string name="str_help">Help</string>
+    <string name="str_about">About us</string>
 </resources>
