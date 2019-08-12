@@ -13,7 +13,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private DatabaseHelper db;
-    private ArrayList<String> emailList;
     private Button m_btnLogin;
     private Button m_btnSignup;
     private EditText m_password;
@@ -22,10 +21,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
+        Intent intent = getIntent();
+        String email = intent.getStringExtra("email");
         db = new DatabaseHelper(this);
         m_btnLogin = (Button) findViewById(R.id.btn_login);
         m_btnSignup = (Button) findViewById(R.id.btn_signup);
         m_email = (EditText) findViewById(R.id.signin_txt_email);
+        if(email!=null){
+            m_email.setText(email);
+        }
         m_password = (EditText) findViewById(R.id.signin_txt_password);
         this.getSupportActionBar().setTitle("Sudoku");
 
