@@ -5,7 +5,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="166dp"
+        android:layout_height="158dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
@@ -30,6 +30,12 @@
             android:ems="10"
             android:hint="@string/str_password"
             android:inputType="textPassword" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/str_keeplog" />
     </LinearLayout>
 
     <LinearLayout

@@ -3,9 +3,12 @@ package com.example.finalproject;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.Checkable;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -17,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     private Button m_btnSignup;
     private EditText m_txtUsername;
     private EditText m_txtPassword;
+    private Checkable m_check;
+    private SharedPreferences sp;
     //testing commit - michell
 
     @Override
@@ -31,10 +36,23 @@ public class MainActivity extends AppCompatActivity {
         m_btnSignup = (Button) findViewById(R.id.btn_signup);
         m_txtUsername = (EditText) findViewById(R.id.signin_txt_username);
         m_txtPassword = (EditText) findViewById(R.id.signin_txt_password);
+        m_check = (CheckBox) findViewById(R.id.checkBox);
+        sp = getSharedPreferences("login",MODE_PRIVATE);
 
         if(user != null){
             m_txtUsername.setText(user);
+            m_check.setChecked(false);
+            sp.edit().putBoolean("logged", false).apply();
+            sp.edit().remove("username").apply();;
         }
+
+        if(sp.getBoolean("logged",false)){
+            Intent logintent = new Intent(getApplicationContext(),MenuActivity.class);
+            String login = sp.getString("username","");
+            logintent.putExtra("Username", login);
+            startActivity(logintent);
+        }
+
         this.getSupportActionBar().setTitle("Sudoku");
 
         m_btnLogin.setOnClickListener(new View.OnClickListener(){
@@ -52,6 +70,10 @@ public class MainActivity extends AppCompatActivity {
                 Boolean check = db.checkUsernameAndPassword(un, pw);
                 if(check==true){
                     Toast.makeText(getApplicationContext(), "Login Successful!", Toast.LENGTH_SHORT).show();
+                    if(m_check.isChecked()){
+                        sp.edit().putBoolean("logged", true).apply();
+                        sp.edit().putString("username",un).apply();
+                    }
                     Intent intent = new Intent(getApplicationContext(),MenuActivity.class);
                     intent.putExtra("Username", un);
                     startActivity(intent);

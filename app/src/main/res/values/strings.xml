@@ -13,4 +13,5 @@
     <string name="str_apply">Apply</string>
     <string name="str_save">Save</string>
     <string name="str_signout">Sign Out</string>
+    <string name="str_keeplog">Keep me log in</string>
 </resources>
