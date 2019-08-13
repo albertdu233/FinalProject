@@ -24,16 +24,16 @@ public class MenuActivity extends AppCompatActivity {
         db = new DatabaseHelper(this);
         //When login successfully, this class will catch the email from the login page
         Intent intent = getIntent();
-        String email = intent.getStringExtra("email");
-        login = db.getUser(email);
-        this.getSupportActionBar().setTitle("Welcome "+login.getUsername()+"!");
+        String username = intent.getStringExtra("Username");
+        login = db.getUser(username);
+        this.getSupportActionBar().setTitle("Welcome " + username + "!");
         menu_btn_pro = (ImageButton) findViewById(R.id.btn_profile);
         menu_btn_pro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String em = login.getEmail();
+                String un = login.getUsername();
                 Intent intent = new Intent(getApplicationContext(),ProfileActivity.class);
-                intent.putExtra("email", em);
+                intent.putExtra("Username", un);
                 startActivity(intent);
             }
         });

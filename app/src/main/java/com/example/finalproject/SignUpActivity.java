@@ -32,7 +32,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String em = sp_email.getText().toString();
-                String um = sp_username.getText().toString();
+                String un = sp_username.getText().toString();
                 String pw = sp_password.getText().toString();
                 String re = sp_re.getText().toString();
                 //check if email is empty
@@ -51,21 +51,21 @@ public class SignUpActivity extends AppCompatActivity {
                     sp_email.setText("");
                 }
                 //check if the username is empty
-                else if(um.equals("")){
+                else if(un.equals("")){
                     Toast.makeText(getApplicationContext(), "The username field is empty!", Toast.LENGTH_SHORT).show();
                 }
                 //check if the username is too short
-                else if (um.length() < 3) {
+                else if (un.length() < 3) {
                     Toast.makeText(getApplicationContext(), "The username cannot be less than 3 letters", Toast.LENGTH_SHORT).show();
                     sp_username.setText("");
                 }
                 //check if the username is too long
-                else if (um.length() > 13) {
+                else if (un.length() > 13) {
                     Toast.makeText(getApplicationContext(), "The username cannot be longer than 13 letters", Toast.LENGTH_SHORT).show();
                     sp_username.setText("");
                 }
                 //check if the email is already used
-                else if(db.checkUser(um)==false){
+                else if(db.checkUser(un)==false){
                     Toast.makeText(getApplicationContext(), "This username already be registered", Toast.LENGTH_SHORT).show();
                     sp_username.setText("");
                 }
@@ -73,8 +73,8 @@ public class SignUpActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "The password field is empty!", Toast.LENGTH_SHORT).show();
                 }
                 //check if the length of password is correct
-                else if (pw.length() != 8) {
-                    Toast.makeText(getApplicationContext(), "The password must be 8 letters long", Toast.LENGTH_SHORT).show();
+                else if (pw.length() < 6) {
+                    Toast.makeText(getApplicationContext(), "The password must be at least 6 letters long", Toast.LENGTH_SHORT).show();
                     sp_password.setText("");
                 }
                 //check if the retype password is empty
@@ -83,11 +83,11 @@ public class SignUpActivity extends AppCompatActivity {
                 }
                 //check if the retype password matched the password
                 else if(!re.equals(pw)){
-                    Toast.makeText(getApplicationContext(), "The retype password deos not match the password!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "The passwords do not match!", Toast.LENGTH_SHORT).show();
                 }
                 //after everything is finished, try to insert it
                 else {
-                    Boolean insert = db.insert(em,um,pw);
+                    Boolean insert = db.insert(em,un,pw);
                     if(insert==true){
                         Toast.makeText(getApplicationContext(), "Registered Successfully!", Toast.LENGTH_SHORT).show();
                     }

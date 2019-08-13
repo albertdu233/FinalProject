@@ -46,17 +46,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if(cursor.getCount()>0) return false; //if it is =0; it means the username does not exist.
         else return true;
     }
-    //checking the email and password
-    public Boolean checkEmailAndPassword(String email, String password){
+
+    //checking the username and password
+    public Boolean checkUsernameAndPassword(String username, String password){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("Select * from user where email=? and password=?", new String[]{email, password});
-        if(cursor.getCount()>0) return true; //if it is =0; it means the email and password does not match;
+        Cursor cursor = db.rawQuery("Select * from user where username=? and password=?", new String[]{username, password});
+        if(cursor.getCount()>0) return true; //if it is =0; it means the username and password does not match;
         else return false;
     }
 
-    public User getUser(String email){
+    public User getUser(String username){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("Select * from user where email=? ",new String[]{email});
+        Cursor cursor = db.rawQuery("Select * from user where username=? ",new String[]{username});
         if(cursor != null && cursor.moveToFirst() ){
             String em = cursor.getString(0);
             String un = cursor.getString(1);
@@ -67,7 +68,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //update data
-    public boolean UPdate(User user){
+    public boolean Update(User user){
         SQLiteDatabase db = this.getReadableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("email",user.getEmail());

@@ -15,45 +15,48 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseHelper db;
     private Button m_btnLogin;
     private Button m_btnSignup;
-    private EditText m_password;
-    private EditText m_email;
+    private EditText m_txtUsername;
+    private EditText m_txtPassword;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
         Intent intent = getIntent();
-        String email = intent.getStringExtra("email");
+        String user = intent.getStringExtra("Username");
         db = new DatabaseHelper(this);
+
         m_btnLogin = (Button) findViewById(R.id.btn_login);
         m_btnSignup = (Button) findViewById(R.id.btn_signup);
-        m_email = (EditText) findViewById(R.id.signin_txt_email);
-        if(email!=null){
-            m_email.setText(email);
+        m_txtUsername = (EditText) findViewById(R.id.signin_txt_username);
+        m_txtPassword = (EditText) findViewById(R.id.signin_txt_password);
+
+        if(user != null){
+            m_txtUsername.setText(user);
         }
-        m_password = (EditText) findViewById(R.id.signin_txt_password);
         this.getSupportActionBar().setTitle("Sudoku");
 
         m_btnLogin.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                String em = m_email.getText().toString();
-                String pw = m_password.getText().toString();
+                String un = m_txtUsername.getText().toString();
+                String pw = m_txtPassword.getText().toString();
                 //check if email is empty
-                if(em.equals("")){
-                    Toast.makeText(getApplicationContext(), "The email field is empty!", Toast.LENGTH_SHORT).show();
+                if(un.equals("")){
+                    Toast.makeText(getApplicationContext(), "The username field is empty!", Toast.LENGTH_SHORT).show();
                 }
                 else if(pw.equals("")){
                     Toast.makeText(getApplicationContext(), "The password field is empty!", Toast.LENGTH_SHORT).show();
                 }
-                Boolean check = db.checkEmailAndPassword(em,pw);
+                Boolean check = db.checkUsernameAndPassword(un, pw);
                 if(check==true){
-                    Toast.makeText(getApplicationContext(), "Login Successfully!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Login Successful!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(),MenuActivity.class);
-                    intent.putExtra("email", em);
+                    intent.putExtra("Username", un);
                     startActivity(intent);
                 }
                 else{
-                    Toast.makeText(getApplicationContext(), "Wrong email or password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Wrong username or password", Toast.LENGTH_SHORT).show();
                 }
             }
         });

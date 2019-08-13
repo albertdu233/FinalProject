@@ -45,9 +45,10 @@ public class ProfileActivity extends AppCompatActivity {
         db = new DatabaseHelper(this);
         //When login successfully, this class will catch the email from the login page
         Intent intent = getIntent();
-        String email = intent.getStringExtra("email");
-        login = db.getUser(email);
-        this.getSupportActionBar().setTitle("Welcome "+login.getUsername()+"!");
+        String username = intent.getStringExtra("Username");
+        this.getSupportActionBar().setTitle("Welcome "+ username +"!");
+        login = db.getUser(username);
+
         editName = (ImageButton) findViewById(R.id.btn_editname) ;
         editPassword = (ImageButton) findViewById(R.id.btn_editpassword) ;
         txtUn = (TextView)findViewById(R.id.txt_p_name);
@@ -138,8 +139,8 @@ public class ProfileActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "New password cannot be empty!", Toast.LENGTH_SHORT).show();
                 }
                 //check if the password length is correct
-                else if (pw.length() !=8) {
-                    Toast.makeText(getApplicationContext(), "The password must be 8 letters long", Toast.LENGTH_SHORT).show();
+                else if (pw.length() < 6) {
+                    Toast.makeText(getApplicationContext(), "The password must be at least 6 letters long", Toast.LENGTH_SHORT).show();
                     input2.setText("");
                 }
                 //check if the password is the same
@@ -178,8 +179,8 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 User update = new User(login.getEmail(),newUn, newPw);
-                db.UPdate(update);
-                Toast.makeText(getApplicationContext(), "Saving......", Toast.LENGTH_SHORT).show();
+                db.Update(update);
+                Toast.makeText(getApplicationContext(), "Saving...", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -190,12 +191,12 @@ public class ProfileActivity extends AppCompatActivity {
 //set dialog for signout
 
         builder3.setTitle("Warning!");
-        builder3.setMessage("Are you sure to sign out?");
+        builder3.setMessage("Are you sure you want to sign out?");
         builder3.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                intent.putExtra("email", login.getEmail());
+                intent.putExtra("Username", login.getUsername());
                 startActivity(intent);
             }
         });
