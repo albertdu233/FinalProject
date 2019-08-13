@@ -1,15 +1,10 @@
 package com.example.finalproject;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NavUtils;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Canvas;
-import android.graphics.ColorFilter;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,20 +17,20 @@ import android.widget.Toast;
 public class ProfileActivity extends AppCompatActivity {
     private DatabaseHelper db;
     private User login;
-    private ImageButton editName;
+    private ImageButton editEmail;
     private ImageButton editPassword;
-    private String newUn;
-    private String newPw;
     private EditText input;
     private EditText input2;
     private TextView txtUn;
     private TextView txtPw;
     private TextView txtEm;
-    private AlertDialog editN;
-    private AlertDialog editP;
+    private AlertDialog editEm;
+    private AlertDialog editPw;
     private AlertDialog logout;
     private Button save;
     private Button signout;
+    private String newEm;
+    private String newPw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,18 +44,18 @@ public class ProfileActivity extends AppCompatActivity {
         this.getSupportActionBar().setTitle("Welcome "+ username +"!");
         login = db.getUser(username);
 
-        editName = (ImageButton) findViewById(R.id.btn_editname) ;
+        editEmail = (ImageButton) findViewById(R.id.btn_editemail) ;
         editPassword = (ImageButton) findViewById(R.id.btn_editpassword) ;
-        txtUn = (TextView)findViewById(R.id.txt_p_name);
+        txtUn = (TextView)findViewById(R.id.txt_p_username);
         txtPw = (TextView)findViewById(R.id.txt_p_password);
         txtEm = (TextView)findViewById(R.id.txt_p_email);
-        txtUn.setText(login.getUsername());
-        txtPw.setText(login.getPassword());
-        txtEm.setText(login.getEmail());
+        txtUn.setText("USERNAME\n " + login.getUsername());
+        txtPw.setText("PASSWORD\n " + login.getPassword());
+        txtEm.setText("EMAIL\n " + login.getEmail());
         save = (Button) findViewById(R.id.btn_save);
-        newUn = login.getUsername();
-        newPw = login.getPassword();
         signout = (Button)findViewById(R.id.btn_signout);
+        newEm = login.getEmail();
+        newPw = login.getPassword();
 
         // Show the Up button in the action bar.
        getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -69,36 +64,38 @@ public class ProfileActivity extends AppCompatActivity {
         //set if click the arrow then go back
         //Create the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
-        builder.setTitle("Change username");
-        builder.setMessage("Enter a new username");
+        builder.setTitle("Update email");
+        builder.setMessage("Enter a new email");
         input = new EditText(ProfileActivity.this);
         builder.setView(input);
         builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                String un = input.getText().toString();
-                String username = login.getUsername();
-                if(un.equals("")){
-                    Toast.makeText(getApplicationContext(), "New username cannot be empty!", Toast.LENGTH_SHORT).show();
+                String em = input.getText().toString();
+                String email = login.getEmail();
+
+                //check if email is empty
+                if(em.equals("")){
+                    Toast.makeText(getApplicationContext(), "The email field is empty!", Toast.LENGTH_SHORT).show();
                 }
-                //check if the username is too short
-                else if (un.length() < 3) {
-                    Toast.makeText(getApplicationContext(), "The username cannot be less than 3 letters", Toast.LENGTH_SHORT).show();
+                //Check if the email format is correct
+                else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(em).matches()) {
+                    Toast.makeText(getApplicationContext(), "Email format incorrect!", Toast.LENGTH_SHORT).show();
                     input.setText("");
                 }
-                //check if the username is too long
-                else if (un.length() > 13) {
-                    Toast.makeText(getApplicationContext(), "The username cannot be longer than 13 letters", Toast.LENGTH_SHORT).show();
+                //check if the email is already used
+                else if(db.checkEmail(em)==false){
+                    Toast.makeText(getApplicationContext(), "This email is already registered", Toast.LENGTH_SHORT).show();
                     input.setText("");
                 }
-                else if(un.equals(username)){
-                    Toast.makeText(getApplicationContext(), "The new username cannot be the same as the old one", Toast.LENGTH_SHORT).show();
+                else if(em.equals(email)){
+                    Toast.makeText(getApplicationContext(), "The new email cannot be the same as the old one", Toast.LENGTH_SHORT).show();
                     input.setText("");
                 }
                 else{
-                    newUn=un;
-                    txtUn.setText(newUn);
-                    Toast.makeText(getApplicationContext(), "Username changed!", Toast.LENGTH_SHORT).show();
+                    newEm = em;
+                    txtEm.setText("EMAIL\n " + newEm);
+                    Toast.makeText(getApplicationContext(), "Email updated!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -110,15 +107,15 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        editN = builder.create();
+        editEm = builder.create();
 
         //click listener for change username
 
-        editName.setOnClickListener(new View.OnClickListener() {
+        editEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                editN.show();
+                editEm.show();
             }
         });
 
@@ -149,8 +146,8 @@ public class ProfileActivity extends AppCompatActivity {
                     input2.setText("");
                 }
                 else{
-                    newPw=pw;
-                    txtPw.setText(newPw);
+                    newPw = pw;
+                    txtPw.setText("PASSWORD\n " + newPw);
                     Toast.makeText(getApplicationContext(), "Password changed!", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -163,13 +160,13 @@ public class ProfileActivity extends AppCompatActivity {
                 dialogInterface.dismiss();
             }
         });
-        editP = builder2.create();
+        editPw = builder2.create();
 
 //click listener for change password
         editPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editP.show();
+                editPw.show();
             }
         });
 
@@ -178,7 +175,7 @@ public class ProfileActivity extends AppCompatActivity {
        save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                User update = new User(login.getEmail(),newUn, newPw);
+                User update = new User(newEm, login.getUsername(), newPw);
                 db.Update(update);
                 Toast.makeText(getApplicationContext(), "Saving...", Toast.LENGTH_SHORT).show();
             }
@@ -190,9 +187,9 @@ public class ProfileActivity extends AppCompatActivity {
 
 //set dialog for signout
 
-        builder3.setTitle("Warning!");
+        builder3.setTitle("Confirm");
         builder3.setMessage("Are you sure you want to sign out?");
-        builder3.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+        builder3.setPositiveButton("Sign out", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Intent intent = new Intent(getApplicationContext(),MainActivity.class);

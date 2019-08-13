@@ -5,7 +5,7 @@ public class User {
     private String password;
     private String email;
 
-    public User(String mail,String uname, String pword ){
+    public User(String mail, String uname, String pword ){
         this.username = uname;
         this.password = pword;
         this.email = mail;

@@ -47,7 +47,7 @@ public class SignUpActivity extends AppCompatActivity {
                 }
                 //check if the email is already used
                 else if(db.checkEmail(em)==false){
-                    Toast.makeText(getApplicationContext(), "This email already be registered", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "This email is already registered", Toast.LENGTH_SHORT).show();
                     sp_email.setText("");
                 }
                 //check if the username is empty
@@ -61,12 +61,12 @@ public class SignUpActivity extends AppCompatActivity {
                 }
                 //check if the username is too long
                 else if (un.length() > 13) {
-                    Toast.makeText(getApplicationContext(), "The username cannot be longer than 13 letters", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "The username cannot be longer than 13 characters", Toast.LENGTH_SHORT).show();
                     sp_username.setText("");
                 }
                 //check if the email is already used
                 else if(db.checkUser(un)==false){
-                    Toast.makeText(getApplicationContext(), "This username already be registered", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "This username is already registered", Toast.LENGTH_SHORT).show();
                     sp_username.setText("");
                 }
                 else if(pw.equals("")){
@@ -101,6 +101,5 @@ public class SignUpActivity extends AppCompatActivity {
     //Function that use the patterns that android studio has to check the email format.
     boolean emailCheck(String email) {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
-
     }
 }

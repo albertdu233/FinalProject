@@ -13,7 +13,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //function for create the table
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("Create table user(email text primary key, username text, password text)");
+        db.execSQL("Create table user(email text, username text primary key, password text)");
     }
     //function for upgrade the table
     @Override
@@ -74,7 +74,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("email",user.getEmail());
         contentValues.put("username",user.getUsername());
         contentValues.put("password",user.getPassword());
-        db.update("user",contentValues,"email=?",new String[]{user.getEmail()});
+        db.update("user",contentValues,"username=?",new String[]{user.getUsername()});
         return true;
     }
 }
