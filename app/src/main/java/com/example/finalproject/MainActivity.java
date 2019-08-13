@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private Button m_btnSignup;
     private EditText m_txtUsername;
     private EditText m_txtPassword;
+    //testing commit - michell
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
