@@ -1,4 +1,5 @@
 package com.example.finalproject;
+import java.util.Random;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -74,6 +75,33 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
                 editEm.show();
             }
         });
+
+        g_btn_newgame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(GameActivity.this);
+                builder.setTitle("Warning!");
+                builder.setMessage("Start a new game?");
+
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        board = loadGameBoards();
+                        startBoard.copyBoard(board.getGameCells());
+                        reset();
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                AlertDialog editEm = builder.create();
+                editEm.show();
+            }
+        });
     }
 
 
@@ -91,7 +119,19 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
     //Function that used to load game boards
     //Boards files are stoed in raw folder as txt file
     private GameBoard loadGameBoards() {
-        int fileId =R.raw.s0;
+        Random rand = new Random();
+        int n = rand.nextInt(3);
+        int fileId=0;
+        if(n==0){
+            fileId =R.raw.s0;
+        }
+        else if(n==1){
+            fileId =R.raw.s1;
+        }
+        else{
+            fileId =R.raw.s2;
+        }
+
 
         GameBoard board = new GameBoard();
         InputStream inputStream = getResources().openRawResource(fileId);
