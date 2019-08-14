@@ -32,10 +32,11 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
     private Button g_btn_reset;
     private Button g_btn_newgame;
     private Button g_btn_solution;
-    private int score;
+    private int score = 0;
     private User login;
-    private ArrayList<Integer> puzzles =  new ArrayList<>();;
-    private ArrayList<Integer> played = new ArrayList<>();;
+    private ArrayList<Integer> puzzles =  new ArrayList<>();
+    private ArrayList<Integer> played = new ArrayList<>();
+    private int puzzleid;
 
 
     @Override
@@ -127,10 +128,13 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
             public void onClick(View v) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(GameActivity.this);
-                builder.setTitle("Warning!");
-                builder.setMessage("Start a new game?");
+                builder.setTitle("Showing the solution");
+                builder.setMessage(loadSolution());
+                //TextView view = new TextView(GameActivity.this);
+                //view.setText(loadSolution());
+                //builder.setView(view);
 
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("New Game", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         board = loadGameBoards();
@@ -138,10 +142,10 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
                         reset();
                     }
                 });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("Leave", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
+                        finish();
                     }
                 });
                 AlertDialog editEm = builder.create();
@@ -175,6 +179,7 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
             fileId=puzzles.get(n);
             puzzles.remove(n);
             played.add(fileId);
+            puzzleid = fileId;
         }
         else{
             fileId=puzzles.get(0);
@@ -182,11 +187,8 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
             played.add(fileId);
             puzzles = new ArrayList<>(played);
             played.clear();
+            puzzleid = fileId;
         }
-
-
-
-
         GameBoard board = new GameBoard();
         InputStream inputStream = getResources().openRawResource(fileId);
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
@@ -211,6 +213,60 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
         return board;
     }
 
+
+    private String loadSolution() {
+        int fileId = 0;
+        switch(puzzleid)
+        {
+            case R.raw.s0 :
+                fileId = R.raw.s0s;
+                break;
+            case R.raw.s1 :
+                fileId = R.raw.s1s;
+                break;
+            case R.raw.s2:
+                fileId = R.raw.s2s;
+                break;
+            case R.raw.s3 :
+                fileId = R.raw.s3s;
+                break;
+            case R.raw.s4 :
+                fileId = R.raw.s4s;
+                break;
+            case R.raw.s5 :
+                fileId = R.raw.s5s;
+                break;
+            case R.raw.s6 :
+                fileId = R.raw.s6s;
+                break;
+            case R.raw.s7 :
+                fileId = R.raw.s7s;
+                break;
+            case R.raw.s8 :
+                fileId = R.raw.s8s;
+                break;
+            case R.raw.s9 :
+                fileId = R.raw.s9s;
+                break;
+            default :
+        }
+
+        String solution = "";
+        InputStream inputStream = getResources().openRawResource(fileId);
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        try {
+            String line = bufferedReader.readLine();
+            while (line != null) {
+                // read all lines in the board
+                solution = "          "+solution+line+"\n";
+                line = bufferedReader.readLine();
+            }
+            bufferedReader.close();
+        } catch (IOException e) {
+            Log.e("GameActivity", e.getMessage());
+        }
+        return solution;
+    }
 
     @Override
     public void onFragmentInteraction(int groupId, int cellId, View view) {
@@ -295,30 +351,14 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
         }
     }
 
+    public void getScore(){
+        if(board.isBoardCorrect()){
+            score +=1000;
+        }
 
-//Function that ask if the user really want to leave
 
-    public void onGoBackButtonClicked(View view) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(GameActivity.this);
-        builder.setTitle("Warning!");
-        builder.setMessage("The game will be ended!");
-
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                finish();
-                dialogInterface.dismiss();
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-
-        AlertDialog editEm = builder.create();
-        editEm.show();
     }
+
+
 
 }
