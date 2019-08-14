@@ -21,6 +21,7 @@ public class MenuActivity extends AppCompatActivity {
     private Button menu_aboutus;
     private Button menu_play;
     private Button menu_rank;
+    private Button menu_help;
     private TextView menu_score;
 
     @Override
@@ -38,6 +39,7 @@ public class MenuActivity extends AppCompatActivity {
         menu_aboutus = (Button) findViewById(R.id.btn_aboutus);
         menu_play = (Button) findViewById(R.id.btn_play);
         menu_rank = (Button) findViewById(R.id.btn_rank);
+        menu_help= (Button) findViewById(R.id.btn_help);
         menu_score = (TextView)findViewById(R.id.txt_bestscore);
         menu_score.setText("Best score: "+login.getBestScore());
         menu_score.setTextSize(25);
@@ -78,10 +80,32 @@ public class MenuActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MenuActivity.this);
-                builder.setTitle("About us!");
-                builder.setMessage("Jingyan Du - 014436615\n" +
+                builder.setTitle("Final project!");
+                builder.setMessage("Group member: \n"+"Jingyan Du - 014436615\n" +
                         "Michell Kuang - 013421094\n" +
                         "Kishan Sarvaiya - 015658251");
+
+                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                AlertDialog editEm = builder.create();
+                editEm.show();
+            }
+        });
+
+        menu_help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MenuActivity.this);
+                builder.setTitle("Help!");
+                builder.setMessage("Click the pencil to open profile page\nClick play to play sudoku\nClick ank to check leaderboard\n"+
+                        "Click About us to see authors\n"+"To play sudoku, each row and column need\nto be filled by different numbers\n" +
+                        "And each 3x3 group needs to be filled \n" +
+                        "by different number");
 
                 builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override

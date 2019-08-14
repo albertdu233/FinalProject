@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -40,6 +41,9 @@ public class RankActivity extends AppCompatActivity {
                 rankLogin = i+1;
             }
         }
+// Show the Up button in the action bar.
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         String detail = login.getUsername()+" \n"
                 +login.getEmail()+"\n"+
@@ -125,6 +129,18 @@ public class RankActivity extends AppCompatActivity {
                 rankAvatar = (ImageView) view.findViewById(R.id.list_avatar);
             }
         }
+    }
+
+
+    //function for the return arrow;
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            this.finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }
