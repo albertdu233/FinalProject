@@ -6,10 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 
 public class MenuActivity extends AppCompatActivity {
@@ -19,6 +21,7 @@ public class MenuActivity extends AppCompatActivity {
     private Button menu_aboutus;
     private Button menu_play;
     private Button menu_rank;
+    private TextView menu_score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,10 @@ public class MenuActivity extends AppCompatActivity {
         menu_aboutus = (Button) findViewById(R.id.btn_aboutus);
         menu_play = (Button) findViewById(R.id.btn_play);
         menu_rank = (Button) findViewById(R.id.btn_rank);
+        menu_score = (TextView)findViewById(R.id.txt_bestscore);
+        menu_score.setText("Best score: "+login.getBestScore());
+        menu_score.setTextSize(25);
+        menu_score.setTextColor(Color.rgb(255,215,0));
 
         menu_play.setOnClickListener(new View.OnClickListener() {
             @Override
