@@ -69,9 +69,15 @@ public class CellGroupFragment extends Fragment {
         int cells[] = new int[]{R.id.cell0, R.id.cell1, R.id.cell2, R.id.cell3,
                 R.id.cell4, R.id.cell5, R.id.cell6, R.id.cell7, R.id.cell8};
         TextView currentView = view.findViewById(cells[position]);
-        currentView.setText(String.valueOf(value));
-        currentView.setTextColor(Color.BLACK);
-        currentView.setTypeface(null, Typeface.BOLD);
+
+        if(value!=0){
+            currentView.setText(String.valueOf(value));
+            currentView.setTextColor(Color.BLACK);
+            currentView.setTypeface(null, Typeface.BOLD);
+        }
+        else{
+            currentView.setText("");
+        }
     }
 
 

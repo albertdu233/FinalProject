@@ -2,11 +2,13 @@ package com.example.finalproject;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,45 +27,53 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
     private EditText input;
     private int row;
     private int column;
+    private Button g_btn_reset;
+    private Button g_btn_newgame;
+    private Button g_btn_solution;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_board);
+
+        g_btn_reset= (Button)findViewById(R.id.game_btn_reset);
+        g_btn_newgame= (Button)findViewById(R.id.game_btn_newgame);
+        g_btn_solution= (Button)findViewById(R.id.game_btn_solution);
+
         board = loadGameBoards();
         startBoard = new GameBoard();
+
         //Copy a board for reset and undo.
+
         startBoard.copyBoard(board.getGameCells());
+        reset();
 
-        int cellGroupFragments[] = new int[]{R.id.Fragment0, R.id.Fragment1, R.id.Fragment2, R.id.Fragment3,
-                R.id.Fragment4, R.id.Fragment5, R.id.Fragment6, R.id.Fragment7, R.id.Fragment8};
-        for (int i = 0; i < 9; i++) {
-            CellGroupFragment thisCellGroupFragment = (CellGroupFragment) getSupportFragmentManager().findFragmentById(cellGroupFragments[i]);
-            thisCellGroupFragment.setGroupId(i);
-        }
+        g_btn_reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                AlertDialog.Builder builder = new AlertDialog.Builder(GameActivity.this);
+                builder.setTitle("Warning!");
+                builder.setMessage("Reset game board?");
 
-        //Display all values from the current board
-
-        CellGroupFragment tempCellGroupFragment;
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                int column = j / 3;
-                int row = i / 3;
-
-                int fragmentNumber = (row * 3) + column;
-                tempCellGroupFragment = (CellGroupFragment) getSupportFragmentManager().findFragmentById(cellGroupFragments[fragmentNumber]);
-                int groupColumn = j % 3;
-                int groupRow = i % 3;
-
-                int groupPosition = (groupRow * 3) + groupColumn;
-                int currentValue = board.getValue(i, j);
-
-                if (currentValue != 0) {
-                    tempCellGroupFragment.setValue(groupPosition, currentValue);
-                }
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        board = new GameBoard();
+                        board.copyBoard(startBoard.getGameCells());
+                        reset();
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                AlertDialog editEm = builder.create();
+                editEm.show();
             }
-        }
+        });
     }
 
 
@@ -125,7 +135,11 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     String num = input.getText().toString();
-                    if(Integer.parseInt(num)==0){
+                    if(!num.matches("\\d+")){
+                        input.setText("");
+                        Toast.makeText(GameActivity.this, ("Invlid input!"), Toast.LENGTH_SHORT).show();
+                    }
+                    else if(Integer.parseInt(num)==0){
                         clickedCell.setText("");
                         clickedCell.setBackground(getDrawable(R.drawable.border_cell));
                         board.setValue(row, column, 0);
@@ -153,6 +167,38 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
             editEm.show();
         } else {
             Toast.makeText(this, ("Can not change start piece"), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void reset(){
+
+        int cellGroupFragments[] = new int[]{R.id.Fragment0, R.id.Fragment1, R.id.Fragment2, R.id.Fragment3,
+                R.id.Fragment4, R.id.Fragment5, R.id.Fragment6, R.id.Fragment7, R.id.Fragment8};
+        for (int i = 0; i < 9; i++) {
+            CellGroupFragment thisCellGroupFragment = (CellGroupFragment) getSupportFragmentManager().findFragmentById(cellGroupFragments[i]);
+            thisCellGroupFragment.setGroupId(i);
+        }
+        //Display all values from the current board
+
+        CellGroupFragment tempCellGroupFragment;
+
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                int column = j / 3;
+                int row = i / 3;
+
+                int fragmentNumber = (row * 3) + column;
+                tempCellGroupFragment = (CellGroupFragment) getSupportFragmentManager().findFragmentById(cellGroupFragments[fragmentNumber]);
+                int groupColumn = j % 3;
+                int groupRow = i % 3;
+
+                int groupPosition = (groupRow * 3) + groupColumn;
+                int currentValue = board.getValue(i, j);
+
+                tempCellGroupFragment.setValue(groupPosition, currentValue);
+
+
+            }
         }
     }
 
