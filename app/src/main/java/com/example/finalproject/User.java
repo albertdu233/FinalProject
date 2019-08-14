@@ -4,11 +4,15 @@ public class User {
     private String username;
     private String password;
     private String email;
+    private int avatraId;
+    private int bestScore;
 
-    public User(String mail, String uname, String pword ){
+    public User(String mail, String uname, String pword, int ava, int bs ){
         this.username = uname;
         this.password = pword;
         this.email = mail;
+        this.avatraId = ava;
+        this.bestScore = bs;
     }
 
     public String getUsername() {
@@ -33,5 +37,21 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getAvatraId() {
+        return avatraId;
+    }
+
+    public int getBestScore() {
+        return bestScore;
+    }
+
+    public void setAvatraId(int avatraId) {
+        this.avatraId = avatraId;
+    }
+
+    public void setBestScore(int bestScore) {
+        this.bestScore = bestScore;
     }
 }

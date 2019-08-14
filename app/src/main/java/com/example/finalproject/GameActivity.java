@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -36,6 +37,7 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
     private ArrayList<Integer> puzzles =  new ArrayList<>();
     private ArrayList<Integer> played = new ArrayList<>();
     private int puzzleid;
+    private DatabaseHelper db;
 
 
     @Override
@@ -46,6 +48,12 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
         g_btn_reset= (Button)findViewById(R.id.game_btn_reset);
         g_btn_newgame= (Button)findViewById(R.id.game_btn_newgame);
         g_btn_solution= (Button)findViewById(R.id.game_btn_solution);
+
+        db = new DatabaseHelper(this);
+        //When login successfully, this class will catch the email from the login page
+        Intent intent = getIntent();
+        String username = intent.getStringExtra("Username");
+        login = db.getUser(username);
 
         puzzles.add(R.raw.s0);
         puzzles.add(R.raw.s1);

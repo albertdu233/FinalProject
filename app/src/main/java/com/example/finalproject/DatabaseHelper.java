@@ -13,7 +13,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //function for create the table
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("Create table user(email text, username text primary key, password text)");
+        db.execSQL("Create table user(email text, username text primary key, password text, avatarid integer, bestscore integer)");
     }
     //function for upgrade the table
     @Override
@@ -21,12 +21,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("drop table if exists user");
     }
     //function for inserting in database
-    public boolean insert(String email, String username, String password){
+    public boolean insert(String email, String username, String password, int avatarid, int bestscore){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("email",email);
         contentValues.put("username",username);
         contentValues.put("password",password);
+        contentValues.put("avatarid",avatarid);
+        contentValues.put("bestscore",bestscore);
         long ins = db.insert("user",null, contentValues);
         if(ins==-1) return false;
         else return true;
@@ -62,7 +64,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String em = cursor.getString(0);
             String un = cursor.getString(1);
             String pw = cursor.getString(2);
-            return new User(em,un,pw);
+           int ava = cursor.getInt(3);
+           int bs = cursor.getInt(4);
+            return new User(em,un,pw, ava, bs);
         }
       return null;
     }
@@ -74,6 +78,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("email",user.getEmail());
         contentValues.put("username",user.getUsername());
         contentValues.put("password",user.getPassword());
+        contentValues.put("avatarid",user.getAvatraId());
+        contentValues.put("bestscore",user.getBestScore());
         db.update("user",contentValues,"username=?",new String[]{user.getUsername()});
         return true;
     }

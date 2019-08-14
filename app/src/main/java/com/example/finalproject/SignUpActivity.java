@@ -87,7 +87,7 @@ public class SignUpActivity extends AppCompatActivity {
                 }
                 //after everything is finished, try to insert it
                 else {
-                    Boolean insert = db.insert(em,un,pw);
+                    Boolean insert = db.insert(em,un,pw, 0, 0);
                     if(insert==true){
                         Toast.makeText(getApplicationContext(), "Registered Successfully!", Toast.LENGTH_SHORT).show();
                     }

@@ -41,7 +41,7 @@ public class MenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String un = login.getUsername();
                 Intent intent = new Intent(getApplicationContext(),GameActivity.class);
-                //intent.putExtra("Username", un);
+                intent.putExtra("Username", un);
                 startActivity(intent);
             }
         });
