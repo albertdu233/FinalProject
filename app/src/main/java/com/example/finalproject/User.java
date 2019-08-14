@@ -19,7 +19,7 @@ public class User {
         this.username = copy.getUsername();
         this.password = copy.getPassword();
         this.email =copy.getEmail();
-        this.avatraId = copy.getAvatraId();
+        this.avatarId = copy.getAvatarId();
         this.bestScore = copy.getBestScore();
     }
 
@@ -55,8 +55,8 @@ public class User {
         return bestScore;
     }
 
-    public void setAvatarId(int avatraId) {
-        this.avatarId = avatraId;
+    public void setAvatarId(int avatarId) {
+        this.avatarId = avatarId;
     }
 
     public void setBestScore(int bestScore) {

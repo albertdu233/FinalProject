@@ -87,7 +87,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("email", user.getEmail());
         contentValues.put("username", user.getUsername());
         contentValues.put("password", user.getPassword());
-        contentValues.put("avatarid", user.getAvatraId());
+        contentValues.put("avatarid", user.getAvatarId());
         contentValues.put("bestscore", user.getBestScore());
         db.update("user", contentValues, "username=?", new String[]{user.getUsername()});
         return true;

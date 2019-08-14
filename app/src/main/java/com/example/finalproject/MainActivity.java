@@ -23,15 +23,12 @@ public class MainActivity extends AppCompatActivity {
     private Checkable m_check;
     private SharedPreferences sp;
 
-    //testing commit - michell
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
 
-
-
+        //Gets the intent from sign out page to retrieve last-used username for login
         Intent intent = getIntent();
         String user = intent.getStringExtra("Username");
         db = new DatabaseHelper(this);
