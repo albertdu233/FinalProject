@@ -88,7 +88,7 @@ public class CellGroupFragment extends Fragment {
 
 
 
-//  When called, setup listener
+//  When called, setup  listener
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
