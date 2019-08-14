@@ -24,6 +24,7 @@ import java.io.InputStreamReader;
 public class GameActivity extends AppCompatActivity implements CellGroupFragment.OnFragmentInteractionListener {
     private GameBoard startBoard;
     private GameBoard board;
+    private GameBoard solutionBoard;
     private int clickedGroup;
     private int clickedCellId;
     private TextView clickedCell;
@@ -38,6 +39,7 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
     private ArrayList<Integer> played = new ArrayList<>();
     private int puzzleid;
     private DatabaseHelper db;
+    private SudokuGenerator sk;
 
 
     @Override
@@ -73,15 +75,20 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
 
         //load game boards
 
-        board = loadGameBoards();
-
+        //board = loadGameBoards();
+         sk = new SudokuGenerator();
+        solutionBoard = new GameBoard();
+        solutionBoard.copyBoard(sk.fillValues());
+        board = new GameBoard();
+        board.copyBoard(sk.createPuzzle());
         startBoard = new GameBoard();
+        startBoard.copyBoard(board.getGameCells());
 
 
 
         //Copy a board for reset and undo.
 
-        startBoard.copyBoard(board.getGameCells());
+
         reset();
 
         //ask the user is he wants to reset the game board, will reset game board based on the copy
@@ -126,7 +133,9 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        board = loadGameBoards();
+                        sk = new SudokuGenerator();
+                        solutionBoard.copyBoard(sk.fillValues());
+                        board.copyBoard(sk.createPuzzle());
                         startBoard.copyBoard(board.getGameCells());
                         reset();
                     }

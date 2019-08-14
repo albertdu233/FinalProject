@@ -21,6 +21,7 @@ public class GameBoard {
 
     //getter will return the whole matrix of game cells
 
+
     public int[][] getGameCells() {
 
         return gameCells;
