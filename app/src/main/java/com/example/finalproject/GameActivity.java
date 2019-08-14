@@ -32,7 +32,6 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
     private Button g_btn_reset;
     private Button g_btn_newgame;
     private Button g_btn_solution;
-    private int score = 0;
     private User login;
     private ArrayList<Integer> puzzles =  new ArrayList<>();
     private ArrayList<Integer> played = new ArrayList<>();
@@ -130,9 +129,9 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
                 AlertDialog.Builder builder = new AlertDialog.Builder(GameActivity.this);
                 builder.setTitle("Showing the solution");
                 builder.setMessage(loadSolution());
-                //TextView view = new TextView(GameActivity.this);
-                //view.setText(loadSolution());
-                //builder.setView(view);
+                TextView view = new TextView(GameActivity.this);
+                view.setText("Your score is: "+getScore());
+                builder.setView(view);
 
                 builder.setPositiveButton("New Game", new DialogInterface.OnClickListener() {
                     @Override
@@ -351,12 +350,15 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
         }
     }
 
-    public void getScore(){
-        if(board.isBoardCorrect()){
-            score +=1000;
+    public int getScore(){
+        int score =0;
+        if(board.isBoardFull()){
+            if(board.isBoardCorrect()){
+                score +=1000;
+            }
         }
-
-
+        score+=board.checkAllGroup();
+        return score;
     }
 
 

@@ -81,24 +81,7 @@ public class CellGroupFragment extends Fragment {
     }
 
 
-    public boolean checkGroupCorrect() {
-        ArrayList<Integer> numbers = new ArrayList<>();
 
-
-        int cells[] = new int[]{R.id.cell0, R.id.cell1, R.id.cell2, R.id.cell3,
-                R.id.cell4, R.id.cell5, R.id.cell6, R.id.cell7, R.id.cell8};
-
-        for (int cell : cells) {
-            TextView txt_cell = view.findViewById(cell);
-            int number = Integer.parseInt(txt_cell.getText().toString());
-            if (numbers.contains(number)) {
-                return false;
-            } else {
-                numbers.add(number);
-            }
-        }
-        return true;
-    }
 
     @Override
     public void onAttach(Context context) {

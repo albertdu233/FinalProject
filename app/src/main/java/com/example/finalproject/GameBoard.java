@@ -1,5 +1,7 @@
 package com.example.finalproject;
 
+import android.widget.TextView;
+
 import java.util.ArrayList;
 
 public class GameBoard {
@@ -7,6 +9,7 @@ public class GameBoard {
     //matrix that store the cells
 
     private int[][] gameCells = new int[9][9];
+    private int cellScore = 0;
 
     public GameBoard() {
 
@@ -88,37 +91,42 @@ public class GameBoard {
         return true;
     }
 
+    public boolean checkGroupCorrect(int groupId) {
+        ArrayList<Integer> numbers = new ArrayList<>();
+        int mistake=0;
+       int row = ((groupId)/3)*3;
+       int column = ((groupId)%3)*3;
+       for(int i=row;i<row+3;i++){
+           for(int j=column;j<column+3;j++){
+               if (numbers.contains(gameCells[i][j])) {
+                   mistake+=1;
+               } else {
+                   numbers.add(gameCells[i][j]);
+               }
+           }
+       }
+       cellScore+=(9-mistake)*5;
+       if(mistake==0){
+           return true;
+        }
+        return false;
+    }
+
+    public int checkAllGroup(){
+        int points = 0;
+        for( int i=0;i<9;i++){
+            if(checkGroupCorrect(i)){
+                points+=200;
+            }
+        }
+
+        return points+cellScore;
+    }
     //Getter that used to get one cell base on x position and y position
 
     public int getValue(int row, int column) {
 
         return gameCells[row][column];
 
-    }
-
-    //toString function for showing this board
-
-    @Override
-    public String toString() {
-        StringBuilder temp = new StringBuilder();
-        for (int i = 0; i < gameCells.length; i++) {
-            for (int j = 0; j < gameCells[i].length; j++) {
-                if (j == 0) {
-                    temp.append("\n");
-                }
-
-                int currentNumber = gameCells[i][j];
-                if (currentNumber == 0) {
-                    temp.append("-");
-                } else {
-                    temp.append(currentNumber);
-                }
-
-                if (j != (gameCells[i].length-1)) {
-                    temp.append(" ");
-                }
-            }
-        }
-        return temp.toString();
     }
 }
