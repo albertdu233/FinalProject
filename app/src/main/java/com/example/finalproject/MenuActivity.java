@@ -1,9 +1,8 @@
 package com.example.finalproject;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,7 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
+
 
 public class MenuActivity extends AppCompatActivity {
     private DatabaseHelper db;
@@ -19,6 +18,7 @@ public class MenuActivity extends AppCompatActivity {
     private ImageButton menu_btn_pro;
     private Button menu_aboutus;
     private Button menu_play;
+    private Button menu_rank;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +34,23 @@ public class MenuActivity extends AppCompatActivity {
         menu_btn_pro = (ImageButton) findViewById(R.id.btn_profile);
         menu_aboutus = (Button) findViewById(R.id.btn_aboutus);
         menu_play = (Button) findViewById(R.id.btn_play);
-
+        menu_rank = (Button) findViewById(R.id.btn_rank);
 
         menu_play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String un = login.getUsername();
                 Intent intent = new Intent(getApplicationContext(),GameActivity.class);
+                intent.putExtra("Username", un);
+                startActivity(intent);
+            }
+        });
+
+        menu_rank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String un = login.getUsername();
+                Intent intent = new Intent(getApplicationContext(),RankActivity.class);
                 intent.putExtra("Username", un);
                 startActivity(intent);
             }

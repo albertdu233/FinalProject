@@ -15,6 +15,14 @@ public class User {
         this.bestScore = bs;
     }
 
+    public User(User copy){
+        this.username = copy.getUsername();
+        this.password = copy.getPassword();
+        this.email =copy.getEmail();
+        this.avatraId = copy.getAvatraId();
+        this.bestScore = copy.getBestScore();
+    }
+
     public String getUsername() {
         return username;
     }

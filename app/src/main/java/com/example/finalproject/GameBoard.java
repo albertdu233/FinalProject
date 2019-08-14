@@ -1,7 +1,5 @@
 package com.example.finalproject;
 
-import android.widget.TextView;
-
 import java.util.ArrayList;
 
 public class GameBoard {

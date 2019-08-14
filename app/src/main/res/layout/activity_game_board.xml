@@ -7,155 +7,167 @@
     android:orientation="vertical"
     tools:context=".GameActivity">
 
-    <TableLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="317dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp">
+        android:layout_height="match_parent">
 
-        <TableRow
-            android:id="@+id/gamRow0"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <fragment
-                android:id="@+id/Fragment0"
-                android:name="com.example.finalproject.CellGroupFragment"
-                android:layout_width="92dp"
-                android:layout_height="106dp"
-                android:layout_weight="1"
-                android:tag="0"
-                tools:layout="@layout/cell_group_fragment" />
-
-            <fragment
-                android:id="@+id/Fragment1"
-                android:name="com.example.finalproject.CellGroupFragment"
-                android:layout_width="92dp"
-                android:layout_height="106dp"
-                android:layout_weight="1"
-                android:tag="1"
-                tools:layout="@layout/cell_group_fragment" />
-
-            <fragment
-                android:id="@+id/Fragment2"
-                android:name="com.example.finalproject.CellGroupFragment"
-                android:layout_width="92dp"
-                android:layout_height="106dp"
-                android:layout_weight="1"
-                android:tag="2"
-                tools:layout="@layout/cell_group_fragment" />
-
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/gameRow1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <fragment
-                android:id="@+id/Fragment3"
-                android:name="com.example.finalproject.CellGroupFragment"
-                android:layout_width="92dp"
-                android:layout_height="106dp"
-                android:layout_weight="1"
-                android:tag="3"
-                tools:layout="@layout/cell_group_fragment" />
-
-            <fragment
-                android:id="@+id/Fragment4"
-                android:name="com.example.finalproject.CellGroupFragment"
-                android:layout_width="92dp"
-                android:layout_height="106dp"
-                android:layout_weight="1"
-                android:tag="4"
-                tools:layout="@layout/cell_group_fragment" />
-
-            <fragment
-                android:id="@+id/Fragment5"
-                android:name="com.example.finalproject.CellGroupFragment"
-                android:layout_width="92dp"
-                android:layout_height="106dp"
-                android:layout_weight="1"
-                android:tag="5"
-                tools:layout="@layout/cell_group_fragment" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/gameRow2"
-            android:layout_width="match_parent"
-            android:layout_height="117dp">
-
-            <fragment
-                android:id="@+id/Fragment6"
-                android:name="com.example.finalproject.CellGroupFragment"
-                android:layout_width="92dp"
-                android:layout_height="106dp"
-                android:layout_weight="1"
-                android:tag="6"
-                tools:layout="@layout/cell_group_fragment" />
-
-            <fragment
-                android:id="@+id/Fragment7"
-                android:name="com.example.finalproject.CellGroupFragment"
-                android:layout_width="92dp"
-                android:layout_height="106dp"
-                android:layout_weight="1"
-                android:tag="7"
-                tools:layout="@layout/cell_group_fragment" />
-
-            <fragment
-                android:id="@+id/Fragment8"
-                android:name="com.example.finalproject.CellGroupFragment"
-                android:layout_width="92dp"
-                android:layout_height="106dp"
-                android:layout_weight="1"
-                android:tag="8"
-                tools:layout="@layout/cell_group_fragment" />
-        </TableRow>
-
-    </TableLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/game_btn_reset"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/mybutton"
-            android:text="@string/str_reset" />
+            android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/game_btn_newgame"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/mybutton"
-            android:text="@string/str_newgame" />
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="317dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp">
 
-        <Button
-            android:id="@+id/game_btn_solution"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/mybutton"
-            android:text="@string/str_solution" />
-    </LinearLayout>
+                <TableRow
+                    android:id="@+id/gamRow0"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <fragment
+                        android:id="@+id/Fragment0"
+                        android:name="com.example.finalproject.CellGroupFragment"
+                        android:layout_width="92dp"
+                        android:layout_height="106dp"
+                        android:layout_weight="1"
+                        android:tag="0"
+                        tools:layout="@layout/cell_group_fragment" />
+
+                    <fragment
+                        android:id="@+id/Fragment1"
+                        android:name="com.example.finalproject.CellGroupFragment"
+                        android:layout_width="92dp"
+                        android:layout_height="106dp"
+                        android:layout_weight="1"
+                        android:tag="1"
+                        tools:layout="@layout/cell_group_fragment" />
+
+                    <fragment
+                        android:id="@+id/Fragment2"
+                        android:name="com.example.finalproject.CellGroupFragment"
+                        android:layout_width="92dp"
+                        android:layout_height="106dp"
+                        android:layout_weight="1"
+                        android:tag="2"
+                        tools:layout="@layout/cell_group_fragment" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/gameRow1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <fragment
+                        android:id="@+id/Fragment3"
+                        android:name="com.example.finalproject.CellGroupFragment"
+                        android:layout_width="92dp"
+                        android:layout_height="106dp"
+                        android:layout_weight="1"
+                        android:tag="3"
+                        tools:layout="@layout/cell_group_fragment" />
+
+                    <fragment
+                        android:id="@+id/Fragment4"
+                        android:name="com.example.finalproject.CellGroupFragment"
+                        android:layout_width="92dp"
+                        android:layout_height="106dp"
+                        android:layout_weight="1"
+                        android:tag="4"
+                        tools:layout="@layout/cell_group_fragment" />
+
+                    <fragment
+                        android:id="@+id/Fragment5"
+                        android:name="com.example.finalproject.CellGroupFragment"
+                        android:layout_width="92dp"
+                        android:layout_height="106dp"
+                        android:layout_weight="1"
+                        android:tag="5"
+                        tools:layout="@layout/cell_group_fragment" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/gameRow2"
+                    android:layout_width="match_parent"
+                    android:layout_height="117dp">
+
+                    <fragment
+                        android:id="@+id/Fragment6"
+                        android:name="com.example.finalproject.CellGroupFragment"
+                        android:layout_width="92dp"
+                        android:layout_height="106dp"
+                        android:layout_weight="1"
+                        android:tag="6"
+                        tools:layout="@layout/cell_group_fragment" />
+
+                    <fragment
+                        android:id="@+id/Fragment7"
+                        android:name="com.example.finalproject.CellGroupFragment"
+                        android:layout_width="92dp"
+                        android:layout_height="106dp"
+                        android:layout_weight="1"
+                        android:tag="7"
+                        tools:layout="@layout/cell_group_fragment" />
+
+                    <fragment
+                        android:id="@+id/Fragment8"
+                        android:name="com.example.finalproject.CellGroupFragment"
+                        android:layout_width="92dp"
+                        android:layout_height="106dp"
+                        android:layout_weight="1"
+                        android:tag="8"
+                        tools:layout="@layout/cell_group_fragment" />
+                </TableRow>
+
+            </TableLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/game_btn_reset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/mybutton"
+                    android:text="@string/str_reset" />
+
+                <Button
+                    android:id="@+id/game_btn_newgame"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/mybutton"
+                    android:text="@string/str_newgame" />
+
+                <Button
+                    android:id="@+id/game_btn_solution"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/mybutton"
+                    android:text="@string/str_solution" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

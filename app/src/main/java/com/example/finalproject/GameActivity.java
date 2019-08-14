@@ -4,12 +4,12 @@ import java.util.Random;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,6 +48,9 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
         g_btn_reset= (Button)findViewById(R.id.game_btn_reset);
         g_btn_newgame= (Button)findViewById(R.id.game_btn_newgame);
         g_btn_solution= (Button)findViewById(R.id.game_btn_solution);
+        // Show the Up button in the action bar.
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         db = new DatabaseHelper(this);
         //When login successfully, this class will catch the email from the login page
@@ -319,6 +322,7 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     String num = input.getText().toString();
+                    //make sure the num input is integer not string
                     if(!num.matches("\\d+")){
                         input.setText("");
                         Toast.makeText(GameActivity.this, ("Invlid input!"), Toast.LENGTH_SHORT).show();
@@ -400,6 +404,15 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
         return score;
     }
 
-
+    //function for the return arrow;
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            this.finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }
