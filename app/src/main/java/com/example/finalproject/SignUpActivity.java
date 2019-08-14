@@ -87,12 +87,12 @@ public class SignUpActivity extends AppCompatActivity {
                 }
                 //after everything is finished, try to insert it
                 else {
-                    Boolean insert = db.insert(em,un,pw, 0, 0);
+                    Boolean insert = db.insert(em,un,pw, R.drawable.avatar0, 0);
                     if(insert==true){
                         Toast.makeText(getApplicationContext(), "Registered Successfully!", Toast.LENGTH_SHORT).show();
                     }
                     Intent intent = new Intent(getApplicationContext(),MenuActivity.class);
-                    intent.putExtra("email", em);
+                    intent.putExtra("Username", un);
                     startActivity(intent);
                 }
             }

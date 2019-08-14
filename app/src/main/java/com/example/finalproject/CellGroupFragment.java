@@ -15,14 +15,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+//Fragment for the game board, this fragment is mainly about the cell group, each group has 3 x 3 cells
+//each board has 3 x 3 cell groups
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class CellGroupFragment extends Fragment {
 
+    //attributes
+
     private int groupId;
-    private OnFragmentInteractionListener Listener;
+    private OnFragmentInteractionListener Listener;//Listener: very important, can respond user's click on cell group
     private View view;
 
     public CellGroupFragment() {
@@ -33,10 +34,11 @@ public class CellGroupFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            //mParam1 = getArguments().getString(ARG_PARAM1);
-            //mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
+
+    //oncreate function
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,11 +61,15 @@ public class CellGroupFragment extends Fragment {
         return view;
     }
 
+    //for each fragment, there is a group id, will be used to get x and y position for a single cell
+
     public void setGroupId(int groupId) {
 
         this.groupId = groupId;
 
     }
+
+    //put values for this group, will only set Text if the cell value is not o, because cell with 0 value means it is a space for user to fill
 
     public void setValue(int position, int value) {
         int cells[] = new int[]{R.id.cell0, R.id.cell1, R.id.cell2, R.id.cell3,
@@ -82,7 +88,7 @@ public class CellGroupFragment extends Fragment {
 
 
 
-
+//  When called, setup listener
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -94,11 +100,16 @@ public class CellGroupFragment extends Fragment {
         }
     }
 
+    //when removed, close listener
+
     @Override
     public void onDetach() {
         super.onDetach();
         Listener = null;
     }
+
+    //Set the interface so, the listener can be called from the game activity
+
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(int groupId, int cellId, View view);
     }

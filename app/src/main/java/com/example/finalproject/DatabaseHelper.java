@@ -64,8 +64,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String em = cursor.getString(0);
             String un = cursor.getString(1);
             String pw = cursor.getString(2);
-           int ava = cursor.getInt(3);
-           int bs = cursor.getInt(4);
+             int ava = Integer.parseInt(cursor.getString(3));
+            int bs = Integer.parseInt(cursor.getString(4));
             return new User(em,un,pw, ava, bs);
         }
       return null;

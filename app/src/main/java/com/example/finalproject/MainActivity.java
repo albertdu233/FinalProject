@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         m_check = (CheckBox) findViewById(R.id.checkBox);
         sp = getSharedPreferences("login",MODE_PRIVATE);
 
-        if(user != null){
+       if(user != null){
             m_txtUsername.setText(user);
             m_check.setChecked(false);
             sp.edit().putBoolean("logged", false).apply();

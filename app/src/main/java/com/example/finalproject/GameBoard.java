@@ -29,7 +29,8 @@ public class GameBoard {
 
     }
 
-    //The function that used to copy another board
+    //The function that used to copy another board, mainly for reset,  a copy will be created when a board is created, in this way we can check if the user
+    //selected a valid cell
 
     public void copyBoard(int[][] newGameCells) {
         for (int i = 0; i < newGameCells.length; i++) {
@@ -57,7 +58,7 @@ public class GameBoard {
 
     public boolean isBoardCorrect() {
 
-        // Check horizontal
+        // Check horizontal if no number is the same
 
         for (int i = 0; i < gameCells.length; i++) {
             ArrayList<Integer> numbers = new ArrayList<>();
@@ -71,7 +72,7 @@ public class GameBoard {
             }
         }
 
-        // Check vertical
+        // Check vertical if no number is the same
 
         for (int i = 0; i < gameCells.length; i++) {
             ArrayList<Integer> numbers = new ArrayList<>();
@@ -90,6 +91,9 @@ public class GameBoard {
 
         return true;
     }
+
+    //Will check a group to see if this group is finished correctlt, if it is finished, user will get 200 points, if not, user will get 5points for each number
+    //that is correct
 
     public boolean checkGroupCorrect(int groupId) {
         ArrayList<Integer> numbers = new ArrayList<>();
@@ -112,6 +116,8 @@ public class GameBoard {
         return false;
     }
 
+    //see if all groups are correct
+
     public int checkAllGroup(){
         int points = 0;
         for( int i=0;i<9;i++){
@@ -122,6 +128,7 @@ public class GameBoard {
 
         return points+cellScore;
     }
+
     //Getter that used to get one cell base on x position and y position
 
     public int getValue(int row, int column) {
