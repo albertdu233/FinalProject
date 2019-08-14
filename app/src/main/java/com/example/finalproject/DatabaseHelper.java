@@ -100,7 +100,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
         Cursor cursor = db.rawQuery("Select * from user", null);
-//hghg
+
         try {
             while (cursor.moveToNext()) {
                 String em = cursor.getString(0);
