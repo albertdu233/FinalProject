@@ -1,4 +1,5 @@
 package com.example.finalproject;
+import java.util.ArrayList;
 import java.util.Random;
 
 import androidx.appcompat.app.AlertDialog;
@@ -31,6 +32,11 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
     private Button g_btn_reset;
     private Button g_btn_newgame;
     private Button g_btn_solution;
+    private int score;
+    private User login;
+    private ArrayList<Integer> puzzles =  new ArrayList<>();;
+    private ArrayList<Integer> played = new ArrayList<>();;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +47,21 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
         g_btn_newgame= (Button)findViewById(R.id.game_btn_newgame);
         g_btn_solution= (Button)findViewById(R.id.game_btn_solution);
 
+        puzzles.add(R.raw.s0);
+        puzzles.add(R.raw.s1);
+        puzzles.add(R.raw.s2);
+        puzzles.add(R.raw.s3);
+        puzzles.add(R.raw.s4);
+        puzzles.add(R.raw.s5);
+        puzzles.add(R.raw.s6);
+        puzzles.add(R.raw.s7);
+        puzzles.add(R.raw.s8);
+        puzzles.add(R.raw.s9);
+
         board = loadGameBoards();
         startBoard = new GameBoard();
+
+
 
         //Copy a board for reset and undo.
 
@@ -102,6 +121,33 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
                 editEm.show();
             }
         });
+
+        g_btn_solution.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(GameActivity.this);
+                builder.setTitle("Warning!");
+                builder.setMessage("Start a new game?");
+
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        board = loadGameBoards();
+                        startBoard.copyBoard(board.getGameCells());
+                        reset();
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                AlertDialog editEm = builder.create();
+                editEm.show();
+            }
+        });
     }
 
 
@@ -119,18 +165,26 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
     //Function that used to load game boards
     //Boards files are stoed in raw folder as txt file
     private GameBoard loadGameBoards() {
-        Random rand = new Random();
-        int n = rand.nextInt(3);
-        int fileId=0;
-        if(n==0){
-            fileId =R.raw.s0;
-        }
-        else if(n==1){
-            fileId =R.raw.s1;
+
+        int fileId = 0;
+
+        if(puzzles.size()>1){
+            Random rand = new Random();
+            int size = puzzles.size();
+            int n = rand.nextInt(size);
+            fileId=puzzles.get(n);
+            puzzles.remove(n);
+            played.add(fileId);
         }
         else{
-            fileId =R.raw.s2;
+            fileId=puzzles.get(0);
+            puzzles.remove(0);
+            played.add(fileId);
+            puzzles = new ArrayList<>(played);
+            played.clear();
         }
+
+
 
 
         GameBoard board = new GameBoard();
@@ -220,7 +274,7 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
         }
         //Display all values from the current board
 
-        CellGroupFragment tempCellGroupFragment;
+        CellGroupFragment displayFragment;
 
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -228,15 +282,14 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
                 int row = i / 3;
 
                 int fragmentNumber = (row * 3) + column;
-                tempCellGroupFragment = (CellGroupFragment) getSupportFragmentManager().findFragmentById(cellGroupFragments[fragmentNumber]);
+                displayFragment = (CellGroupFragment) getSupportFragmentManager().findFragmentById(cellGroupFragments[fragmentNumber]);
                 int groupColumn = j % 3;
                 int groupRow = i % 3;
 
                 int groupPosition = (groupRow * 3) + groupColumn;
                 int currentValue = board.getValue(i, j);
 
-                tempCellGroupFragment.setValue(groupPosition, currentValue);
-
+                displayFragment.setValue(groupPosition, currentValue);
 
             }
         }
@@ -263,6 +316,7 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
                 dialogInterface.dismiss();
             }
         });
+
         AlertDialog editEm = builder.create();
         editEm.show();
     }
