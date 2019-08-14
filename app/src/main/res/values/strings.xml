@@ -13,11 +13,13 @@
     <string name="str_apply">Apply</string>
     <string name="str_save">Save</string>
     <string name="str_signout">Sign Out</string>
-    <string name="str_keeplog">Keep me log in</string>
+    <string name="str_selectimage">Select image</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="str_reset">Rest Game</string>
     <string name="str_newgame">New Game</string>
     <string name="str_solution">Show solution</string>
+    <string name="str_keeplog">Keep Log</string>
 </resources>

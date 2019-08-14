@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "The password field is empty!", Toast.LENGTH_SHORT).show();
                 }
                 Boolean check = db.checkUsernameAndPassword(un, pw);
-                if(check==true){
+                if(check){
                     Toast.makeText(getApplicationContext(), "Login Successful!", Toast.LENGTH_SHORT).show();
                     if(m_check.isChecked()){
                         sp.edit().putBoolean("logged", true).apply();
