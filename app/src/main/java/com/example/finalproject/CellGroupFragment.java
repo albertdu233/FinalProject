@@ -24,13 +24,15 @@ import java.util.ArrayList;
 public class CellGroupFragment extends Fragment {
 
     //attributes
-
     private int groupId;
     private OnFragmentInteractionListener Listener;//Listener: very important, can respond user's click on cell group
     private View view;
 
+    /**
+     * Default empty constructor
+     */
     public CellGroupFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
@@ -40,9 +42,13 @@ public class CellGroupFragment extends Fragment {
         }
     }
 
-
-    //oncreate function
-
+    /**
+     * Displays the fragment on create.
+     * @param inflater Inflates the layout
+     * @param container Container to inflate the layout
+     * @param savedInstanceState The saved previous state
+     * @return Returns the view of the fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -64,16 +70,20 @@ public class CellGroupFragment extends Fragment {
         return view;
     }
 
-    //for each fragment, there is a group id, will be used to get x and y position for a single cell
-
+    /**
+     * Sets the group ID for each fragment that will be used to get the x and y position for a cell.
+     * @param groupId
+     */
     public void setGroupId(int groupId) {
-
         this.groupId = groupId;
-
     }
 
-    //put values for this group, will only set Text if the cell value is not o, because cell with 0 value means it is a space for user to fill
-
+    /**
+     * Sets the values for a matrix group. It will only set the text if the value is not 0 because a 0 value
+     * represents an empty space for the user to solve.
+     * @param position
+     * @param value
+     */
     public void setValue(int position, int value) {
         int cells[] = new int[]{R.id.cell0, R.id.cell1, R.id.cell2, R.id.cell3,
                 R.id.cell4, R.id.cell5, R.id.cell6, R.id.cell7, R.id.cell8};
@@ -93,6 +103,13 @@ public class CellGroupFragment extends Fragment {
         }
     }
 
+    /**
+     * Shows the result of the puzzle creation.
+     * @param position Position of the cell
+     * @param value The value in the cell
+     * @param vs Value in the start board
+     * @param vc Value in the current board
+     */
     public void showResult(int position, int value, int vs, int vc) {
         int cells[] = new int[]{R.id.cell0, R.id.cell1, R.id.cell2, R.id.cell3,
                 R.id.cell4, R.id.cell5, R.id.cell6, R.id.cell7, R.id.cell8};
@@ -112,7 +129,10 @@ public class CellGroupFragment extends Fragment {
         }
     }
 
-//  When called, setup  listener
+    /**
+     * Sets the listener for the fragment
+     * @param context Context of the application it's in
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -124,18 +144,19 @@ public class CellGroupFragment extends Fragment {
         }
     }
 
-    //when removed, close listener
-
+    /**
+     * Closes the listener when removed.
+     */
     @Override
     public void onDetach() {
         super.onDetach();
         Listener = null;
     }
 
-    //Set the interface so, the listener can be called from the game activity
-
+    /**
+     * Sets the interface of the fragment so the listener can be called from game activity.
+     */
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(int groupId, int cellId, View view);
     }
-
 }
