@@ -289,6 +289,7 @@ public class ProfileActivity extends AppCompatActivity {
                 int selectedNumber = numbers[i];
                 avatarId = avatarList.get(selectedNumber);
                 avatar.setImageDrawable(getDrawable(avatarId));
+                login.setAvatarId(avatarId);
             }
 
             @Override
