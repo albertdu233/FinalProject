@@ -4,8 +4,8 @@
  */
 package com.example.finalproject;
 
-public class SudokuGenerator
-{
+public class SudokuGenerator {
+
     int[][]mat;//2d array that used to generator numbers
     int[][]full;//2d array that store full board
     int[][]puzzle;//2d array that store board with cells removed
@@ -26,10 +26,11 @@ public class SudokuGenerator
         mat = new int[N][N];
     }
 
-    // Sudoku Generator
-    //This function will return a full board which will be save as a solution
-    public int[][] fillValues()
-    {
+    /**
+     * Returns a full board which will be used as a solution.
+     * @return
+     */
+    public int[][] fillValues() {
         // Fill the diagonal of sqrN x sqrN matrices = 3x3
         fillDiagonal();
         // Fill remaining blocks
@@ -38,17 +39,22 @@ public class SudokuGenerator
         return full;
     }
 
-    // Fill the diagonal sqrN number of sqrN x sqrN matrices
-    void fillDiagonal()
-    {
+    /**
+     * Fills the diagonal 3x3 boxes.
+     */
+    void fillDiagonal() {
         for (int i = 0; i<N; i=i+ sqrN){
             // for diagonal box, start coordinates->i==j
             fillBox(i, i);
         }
     }
-    // Fill a 3 x 3 matrix with random number
-    void fillBox(int row,int col)
-    {
+
+    /**
+     * Fills a 3x3 box with random numbers.
+     * @param row The row of the 3x3 box.
+     * @param col The column of the 3x3 box
+     */
+    void fillBox(int row,int col) {
         int num;
         for (int i = 0; i< sqrN; i++)
         {
@@ -64,11 +70,15 @@ public class SudokuGenerator
             }
         }
     }
-    //Function that checks if there is a dublicated number in a 3x3 group
-    // Returns false if given 3 x 3 block contains num.
 
-    boolean unUsedInBox(int rowStart, int colStart, int num)
-    {
+    /**
+     * Checks if a number already exists in a 3x3 box.
+     * @param rowStart Row that this 3x3 box starts at
+     * @param colStart Column that this 3x3 box starts at
+     * @param num Number to check
+     * @return true if used; false if else
+     */
+    boolean unUsedInBox(int rowStart, int colStart, int num) {
         for (int i = 0; i< sqrN; i++)
             for (int j = 0; j< sqrN; j++)
                 if (mat[rowStart+i][colStart+j]==num)
@@ -77,45 +87,61 @@ public class SudokuGenerator
         return true;
     }
 
-
-
-    // Random number generator from 1-81
-    int randomGenerator(int num)
-    {
+    /**
+     * Random number generator from 1-num.
+     * @param num End range
+     * @return Random number
+     */
+    int randomGenerator(int num) {
         return (int) Math.floor((Math.random()*num+1));
     }
 
-    // Check if safe to put in cell
-    //Will make sure for a row, a column and 3x3 group, this number only appear once
-    boolean CheckIfSafe(int i,int j,int num)
-    {
+    /**
+     * Checks if it's safe to put a number in a row, column, and 3x3 box.
+     * @param i Row
+     * @param j Column
+     * @param num Number to check
+     * @return true if safe; false if else
+     */
+    boolean CheckIfSafe(int i,int j,int num) {
         return (unUsedInRow(i, num) &&
                 unUsedInCol(j, num) &&
                 unUsedInBox(i-i% sqrN, j-j% sqrN, num));
     }
 
-    // check in the row for existence
-    boolean unUsedInRow(int i,int num)
-    {
+    /**
+     * Checks if a number already exists in a row.
+     * @param i Row
+     * @param num Number to check
+     * @return true if does not exist; false if else
+     */
+    boolean unUsedInRow(int i,int num) {
         for (int j = 0; j<N; j++)
             if (mat[i][j] == num)
                 return false;
         return true;
     }
 
-    // check in the row for existence
-    boolean unUsedInCol(int j,int num)
-    {
+    /**
+     * Checks if a number already exists in a column.
+     * @param j Column
+     * @param num Number to check
+     * @return true if does not exist; false if else
+     */
+    boolean unUsedInCol(int j,int num) {
         for (int i = 0; i<N; i++)
             if (mat[i][j] == num)
                 return false;
         return true;
     }
 
-    // A recursive function to fill remaining
-    // matrix
-    boolean fillRemaining(int i, int j)
-    {
+    /**
+     * Fills the remaining cells.
+     * @param i Row
+     * @param j Column
+     * @return True if successful; false if else
+     */
+    boolean fillRemaining(int i, int j) {
         if (j>=N && i<N-1)
         {
             i = i + 1;
@@ -160,10 +186,11 @@ public class SudokuGenerator
         return false;
     }
 
-
-    // Remove the cells to a puzzle
-    public int[][] createPuzzle()
-    {
+    /**
+     * Creates the sudoku puzzle by hiding some of the cells.
+     * @return puzzle The final playable puzzle
+     */
+    public int[][] createPuzzle() {
         puzzle = copy(full);
         int count = hides;
         while (count != 0)
@@ -187,9 +214,12 @@ public class SudokuGenerator
         return puzzle;
     }
 
-//function that I used to copy a 2d array
-
-    public int[][]copy(int[][]matrix){
+    /**
+     * This copies the entire sudoku puzzle.
+     * @param matrix Puzzle to copy
+     * @return copy The copy of the sudoku puzzle
+     */
+    public int[][]copy(int[][]matrix) {
         int[][] copy = new int[matrix.length][];
         for(int i = 0; i < matrix.length; i++)
         {
