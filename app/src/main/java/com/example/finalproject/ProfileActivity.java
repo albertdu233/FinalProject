@@ -12,11 +12,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class ProfileActivity extends AppCompatActivity {
     private DatabaseHelper db;
@@ -35,6 +41,9 @@ public class ProfileActivity extends AppCompatActivity {
     private Button signout;
     private String newEm;
     private String newPw;
+    private ImageView avatar;
+    private int avatarId;
+    private ArrayList<Integer> avatarList = new ArrayList<Integer>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +59,20 @@ public class ProfileActivity extends AppCompatActivity {
 
         editEmail = (ImageButton) findViewById(R.id.btn_editemail) ;
         editPassword = (ImageButton) findViewById(R.id.btn_editpassword) ;
+
+        avatar = (ImageView)findViewById(R.id.image_avatar) ;
+        avatar.setImageDrawable(getDrawable(login.getAvatarId()));
+
+        avatarList.add(R.drawable.avatar0);
+        avatarList.add(R.drawable.avatar1);
+        avatarList.add(R.drawable.avatar2);
+        avatarList.add(R.drawable.avatar3);
+        avatarList.add(R.drawable.avatar4);
+        avatarList.add(R.drawable.avatar5);
+        avatarList.add(R.drawable.avatar6);
+
+        initializeSpinner();
+
         txtUn = (TextView)findViewById(R.id.txt_p_username);
         txtPw = (TextView)findViewById(R.id.txt_p_password);
         txtEm = (TextView)findViewById(R.id.txt_p_email);
@@ -96,6 +119,7 @@ public class ProfileActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "This email is already registered", Toast.LENGTH_SHORT).show();
                     input.setText("");
                 }
+                //check if email is the same as the current one
                 else if(em.equals(email)){
                     Toast.makeText(getApplicationContext(), "The new email cannot be the same as the old one", Toast.LENGTH_SHORT).show();
                     input.setText("");
@@ -246,6 +270,33 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Initializes a spinner for selecting an avatar.
+     */
+    private void initializeSpinner() {
+        int index = avatarList.indexOf(login.getAvatarId());
+        final Integer numbers[] = {0,1, 2, 3, 4, 5, 6};
+        ArrayAdapter<Integer> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, numbers);
+        Spinner spinner = findViewById(R.id.avatar_spinner);
+        spinner.setAdapter(arrayAdapter);
+        spinner.setSelection(index);
+        /**
+         * Sets a listener for the item selected on a spinner. User avatar will be updated.
+         */
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                int selectedNumber = numbers[i];
+                avatarId = avatarList.get(selectedNumber);
+                avatar.setImageDrawable(getDrawable(avatarId));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
     /**
      * Functionality for the return arrow.
      * @param item Item from the menu that is selected
