@@ -116,6 +116,7 @@ public class SudokuGenerator
             i = i + 1;
             j = 0;
         }
+        //When the x and y position both reach 9 stop the function
         if (i>=N && j>=N)
             return true;
 
