@@ -18,8 +18,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="str_reset">Rest Game</string>
+    <string name="str_reset">Reset Game</string>
     <string name="str_newgame">New Game</string>
     <string name="str_solution">Show solution</string>
-    <string name="str_keeplog">Keep Log</string>
+    <string name="str_rememberme">Remember me</string>
 </resources>

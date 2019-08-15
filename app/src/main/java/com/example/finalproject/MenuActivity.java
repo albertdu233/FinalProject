@@ -80,8 +80,8 @@ public class MenuActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MenuActivity.this);
-                builder.setTitle("Final project!");
-                builder.setMessage("Group member: \n"+"Jingyan Du - 014436615\n" +
+                builder.setTitle("Final project: Sudoku");
+                builder.setMessage("Group members: \n"+"Jingyan Du - 014436615\n" +
                         "Michell Kuang - 013421094\n" +
                         "Kishan Sarvaiya - 015658251");
 
@@ -101,11 +101,10 @@ public class MenuActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MenuActivity.this);
-                builder.setTitle("Help!");
-                builder.setMessage("Click the pencil to open profile page\nClick play to play sudoku\nClick Rank to check leaderboard\n"+
-                        "Click About us to see authors\n"+"To play sudoku, each row and column need\nto be filled by different numbers\n" +
-                        "And each 3x3 group needs to be filled \n" +
-                        "by different number");
+                builder.setTitle("Help");
+                builder.setMessage("- Click the pencil to open your profile page\n- Click Play to start a game\n- Click Rank to check the leaderboard\n"+
+                        "- Click About us to see the authors\n\n"+"Rules: The classic Sudoku game involves a 9x9 grid with 81 cells. Each of the nine " +
+                        "blocks has to contain all the numbers 1-9 within its cells. Each number can only appear once in a row, column or box.");
 
                 builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override

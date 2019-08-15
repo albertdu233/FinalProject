@@ -32,10 +32,10 @@
             android:inputType="textPassword" />
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/chkRememberMe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/str_keeplog" />
+            android:text="@string/str_rememberme" />
     </LinearLayout>
 
     <LinearLayout

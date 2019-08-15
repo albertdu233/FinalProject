@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -39,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         m_btnSignup = (Button) findViewById(R.id.btn_signup);
         m_txtUsername = (EditText) findViewById(R.id.signin_txt_username);
         m_txtPassword = (EditText) findViewById(R.id.signin_txt_password);
-        m_check = (CheckBox) findViewById(R.id.checkBox);
+        m_check = (CheckBox) findViewById(R.id.chkRememberMe);
         sp = getSharedPreferences("login",MODE_PRIVATE);
 
        if(user != null){
