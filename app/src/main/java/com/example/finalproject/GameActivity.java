@@ -1,3 +1,8 @@
+/**
+ * This class represents the game activity for the Sudoku gameplay. It controls
+ * the actions for the user to insert numbers and show the solution, reset the game,
+ * and start a new game.
+ */
 package com.example.finalproject;
 
 import java.util.ArrayList;
@@ -14,8 +19,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
 
 public class GameActivity extends AppCompatActivity implements CellGroupFragment.OnFragmentInteractionListener {
     private GameBoard startBoard;
@@ -69,8 +72,9 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
 
         reset();
 
-        //ask the user is he wants to reset the game board, will reset game board based on the copy
-
+        /**
+         * Sets a listener for the reset button that allows the user to reset the current game board.
+         */
         g_btn_reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,8 +103,9 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
             }
         });
 
-        //ask the user if he wants to start a new game, will load and copy game board again
-
+        /**
+         * Sets a listener for the new game button that allows the user to start a new game.
+         */
         g_btn_newgame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,9 +141,10 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
             }
         });
 
-        //show solution, will show the correct solution for this board and show scores for this user, if the score is better than this user's best score in
-        //database, then it will replacce this best score.
-
+        /**
+         * Sets a listener for the solution button to show the user the solution for the game.
+         * This will also end the game and record the player's score.
+         */
         g_btn_solution.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,18 +163,27 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
             }
         });
     }
-    //Check if this cell is a preset cell
+
+    /**
+     * Checks if the cell is a preset cell.
+     * @param group The group in which the cell exists
+     * @param cell The cell to check.
+     * @return true if successful; false if else
+     */
     private boolean preSet(int group, int cell) {
         int row = ((group)/3)*3 + (cell/3);
         int column = ((group)%3)*3 + ((cell)%3);
         return startBoard.getValue(row, column) != 0;
     }
-    //listener for the cell group fragment
-    //will get x and y position for the game board to find the cell which the user clicked
-    //And then will ask the user to enter a number
-    //0 will clear the original input
-    //user can only input 0-9
 
+    /**
+     * Controls the functionality for gameplay. It will get the x and y position for
+     * the cell that the user clicks and ask the user for a number to enter. 0 will clear
+     * the original input.
+     * @param groupId
+     * @param cellId
+     * @param view
+     */
     @Override
     public void onFragmentInteraction(int groupId, int cellId, View view) {
         clickedCell = (TextView) view;
@@ -182,6 +197,9 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
             builder.setMessage("0 will clear this cell");
             input = new EditText(GameActivity.this);
             builder.setView(input);
+            /**
+             * Sets a listener for the Ok button that will confirm the number selected
+             */
             builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -209,6 +227,9 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
                     }
                 }
             });
+            /**
+             * Sets a listener for the cancel button if the user decides not to put a number there
+             */
             builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -222,8 +243,9 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
         }
     }
 
-    //This function will display the game board by set values for all fragments
-
+    /**
+     * Resets and displays the game board by set values for all fragments.
+     */
     public void reset(){
 
         int cellGroupFragments[] = new int[]{R.id.Fragment0, R.id.Fragment1, R.id.Fragment2, R.id.Fragment3,
@@ -255,6 +277,9 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
         }
     }
 
+    /**
+     * Shows the solution for the current game board.
+     */
     public void showSolution(){
 
         int cellGroupFragments[] = new int[]{R.id.Fragment0, R.id.Fragment1, R.id.Fragment2, R.id.Fragment3,
@@ -264,7 +289,6 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
             thisCellGroupFragment.setGroupId(i);
         }
         //Display all values from the current board
-
         CellGroupFragment displayFragment;
 
         for (int i = 0; i < 9; i++) {
@@ -285,7 +309,10 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
             }
         }
     }
-    //simple function that help calculates score a user get
+    /**
+     * Calculates the player's score for the current game.
+     * @return
+     */
     public int getScore(){
         int score =0;
         if(board.isBoardFull()){
@@ -297,7 +324,11 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
         return score;
     }
 
-    //function for the return arrow;
+    /**
+     * Fucntionality for the return button.
+     * @param item Item that is selected
+     * @return Returns to the previous page
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();

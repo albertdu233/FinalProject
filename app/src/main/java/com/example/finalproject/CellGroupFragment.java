@@ -1,5 +1,7 @@
+/**
+ * This fragment represents a group of 3x3 cells on the board.
+ */
 package com.example.finalproject;
-
 
 import android.content.Context;
 import android.graphics.Color;
