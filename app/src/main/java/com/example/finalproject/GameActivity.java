@@ -302,7 +302,9 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            this.finish();
+            Intent intent = new Intent(getApplicationContext(),MenuActivity.class);
+            intent.putExtra("Username", login.getUsername());
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
