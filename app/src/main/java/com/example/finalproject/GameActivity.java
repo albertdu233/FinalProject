@@ -14,14 +14,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-<<<<<<< Updated upstream
 
-=======
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
->>>>>>> Stashed changes
 
 
 
