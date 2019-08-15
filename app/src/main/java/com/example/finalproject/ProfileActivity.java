@@ -1,3 +1,7 @@
+/**
+ * This class is the user profile/account settings page. Users can
+ * change/update information as well as sign out here.
+ */
 package com.example.finalproject;
 
 import androidx.appcompat.app.AlertDialog;
@@ -38,7 +42,7 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         db = new DatabaseHelper(this);
-        //When login successfully, this class will catch the email from the login page
+        // When login is successful, this get the intent with the username from the login page
         Intent intent = getIntent();
         String username = intent.getStringExtra("Username");
         this.getSupportActionBar().setTitle("Welcome "+ username +"!");
@@ -58,16 +62,20 @@ public class ProfileActivity extends AppCompatActivity {
         newPw = login.getPassword();
 
         // Show the Up button in the action bar.
-       getSupportActionBar().setDisplayShowHomeEnabled(true);
-       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //set if click the arrow then go back
-        //Create the dialog
+        // Create the dialog for updating the email
         AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
         builder.setTitle("Update email");
         builder.setMessage("Enter a new email");
         input = new EditText(ProfileActivity.this);
         builder.setView(input);
+
+        /**
+         * Sets an action for the confirm button in the dialog box. If all checks
+         * are valid, the email will be updated.
+         */
         builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -99,6 +107,11 @@ public class ProfileActivity extends AppCompatActivity {
                 }
             }
         });
+
+        /**
+         * Sets an action for the cancel button in the dialog box.
+         * Dialog box will be closed.
+         */
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -109,8 +122,9 @@ public class ProfileActivity extends AppCompatActivity {
 
         editEm = builder.create();
 
-        //click listener for change username
-
+        /**
+         * Sets a listener for the edit email button.
+         */
         editEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,14 +133,17 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        // Create the dialog for changing the password
         AlertDialog.Builder builder2 = new AlertDialog.Builder(ProfileActivity.this);
-
-//set dialog for edit password
-
         builder2.setTitle("Change password");
         builder2.setMessage("Enter a new password");
         input2 = new EditText(ProfileActivity.this);
         builder2.setView(input2);
+
+        /**
+         * Sets an action for the confirm button in the dialog box. If all checks
+         * are valid, password will be changed.
+         */
         builder2.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -153,6 +170,10 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         * Sets an action for the cancel button in the dialog box.
+         * Dialog box will be closed.
+         */
         builder2.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -162,7 +183,9 @@ public class ProfileActivity extends AppCompatActivity {
         });
         editPw = builder2.create();
 
-//click listener for change password
+        /**
+         * Sets a listener for the change password button.
+         */
         editPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -170,25 +193,27 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-//set save button
-
-       save.setOnClickListener(new View.OnClickListener() {
+        /**
+         * Sets a listener for the save button. When pressed, all user
+         * information will be updated and saved in the database.
+         */
+        save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                User update = new User(newEm, login.getUsername(), newPw, login.getAvatraId(), login.getBestScore());
+                User update = new User(newEm, login.getUsername(), newPw, login.getAvatarId(), login.getBestScore());
                 db.Update(update);
                 Toast.makeText(getApplicationContext(), "Saving...", Toast.LENGTH_SHORT).show();
             }
         });
 
-
-
+        // Create the dialog for signing out
         AlertDialog.Builder builder3 = new AlertDialog.Builder(ProfileActivity.this);
-
-//set dialog for signout
-
         builder3.setTitle("Confirm");
         builder3.setMessage("Are you sure you want to sign out?");
+
+        /**
+         * Sets an action for the sign out button in the dialog box.
+         */
         builder3.setPositiveButton("Sign out", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -198,6 +223,10 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         * Sets an action for the cancel button in the dialog box.
+         * Dialog box will be closed.
+         */
         builder3.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -206,7 +235,10 @@ public class ProfileActivity extends AppCompatActivity {
         });
         logout = builder3.create();
 
-       signout.setOnClickListener(new View.OnClickListener() {
+        /**
+         * Sets a listener for the sign out button.
+         */
+        signout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 logout.show();
@@ -214,8 +246,11 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-
-    //function for the return arrow;
+    /**
+     * Functionality for the return arrow.
+     * @param item Item from the menu that is selected
+     * @return Returns to the previous page.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
