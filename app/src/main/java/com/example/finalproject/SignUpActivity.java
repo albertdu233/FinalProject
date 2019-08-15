@@ -21,10 +21,7 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText sp_re;
     private EditText sp_email;
     private EditText sp_username;
-    private Button sp_btn_image;
-    private ImageView sp_img;
-    private AlertDialog select;
-    private TextView avatars;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,32 +35,6 @@ public class SignUpActivity extends AppCompatActivity {
         sp_re = (EditText)findViewById(R.id.txt_apply_retype);
         sp_btn_apply = (Button)findViewById(R.id.btn_apply);
 
-        //Create the dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Choose an avatar");
-        builder.setView(avatars);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-
-        select = builder.create();
-
-        //listener for selecting image
-        sp_btn_image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                select.show();
-            }
-        } );
 
         sp_btn_apply.setOnClickListener(new View.OnClickListener() {
             @Override
