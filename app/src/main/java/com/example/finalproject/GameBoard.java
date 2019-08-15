@@ -1,36 +1,44 @@
+/**
+ * This class represents the game board.
+ */
 package com.example.finalproject;
 
 import java.util.ArrayList;
 
 public class GameBoard {
 
-    //matrix that store the cells
-
     private int[][] gameCells = new int[9][9];
     private int cellScore = 0;
 
+    /**
+     * Default constructor
+     */
     public GameBoard() {
 
     }
 
-    //setter for the game cell, need both x position and y position
-
+    /**
+     * Sets the value for a game cell.
+     * @param row The row that the cell is in
+     * @param column The column that the cell is in
+     * @param i The value to assign
+     */
     public void setValue(int row, int column, int i) {
         gameCells[row][column] = i;
     }
 
-    //getter will return the whole matrix of game cells
-
-
+    /**
+     * Gets the entire gameboard matrix with its values
+     * @return
+     */
     public int[][] getGameCells() {
-
         return gameCells;
-
     }
 
-    //The function that used to copy another board, mainly for reset,  a copy will be created when a board is created, in this way we can check if the user
-    //selected a valid cell
-
+    /**
+     * Copies a board onto a new board. Used for the reset function.
+     * @param newGameCells
+     */
     public void copyBoard(int[][] newGameCells) {
         for (int i = 0; i < newGameCells.length; i++) {
             for (int j = 0; j < newGameCells[i].length; j++) {
@@ -39,8 +47,10 @@ public class GameBoard {
         }
     }
 
-    //This function is used to check if the board is completed
-
+    /**
+     * Checks if the board is full/completed.
+     * @return true if full; false if else
+     */
     public boolean isBoardFull() {
         for (int i = 0; i < gameCells.length; i++) {
             for (int j = 0; j < gameCells[i].length; j++) {
@@ -52,13 +62,12 @@ public class GameBoard {
         return true;
     }
 
-
-    //function that used to check if this board is correct
-
+    /**
+     * Checks if the board is correct with the solution.
+     * @return True if correct; false if else
+     */
     public boolean isBoardCorrect() {
-
         // Check horizontal if no number is the same
-
         for (int i = 0; i < gameCells.length; i++) {
             ArrayList<Integer> numbers = new ArrayList<>();
             for (int j = 0; j < gameCells[i].length; j++) {
@@ -72,7 +81,6 @@ public class GameBoard {
         }
 
         // Check vertical if no number is the same
-
         for (int i = 0; i < gameCells.length; i++) {
             ArrayList<Integer> numbers = new ArrayList<>();
             for (int j = 0; j < gameCells[i].length; j++) {
@@ -87,13 +95,15 @@ public class GameBoard {
 
         // Check each group is in CellGroupFragment class for easier code
         // returns true if horizontal and vertical lines are correct
-
         return true;
     }
 
-    //Will check a group to see if this group is finished correctlt, if it is finished, user will get 200 points, if not, user will get 5points for each number
-    //that is correct
-
+    /**
+     * Checks if a 3x3 group is correct. If it's completed, the user will receive 200 points.
+     * If not, each correct cell gets 5 points.
+     * @param groupId The ID of the cell group
+     * @return Returns true if correct; false if else
+     */
     public boolean checkGroupCorrect(int groupId) {
         ArrayList<Integer> numbers = new ArrayList<>();
         int mistake=0;
@@ -115,8 +125,10 @@ public class GameBoard {
         return false;
     }
 
-    //see if all groups are correct
-
+    /**
+     * Checks if all the groups are correct.
+     * @return Returns the total points
+     */
     public int checkAllGroup(){
         int points = 0;
         for( int i=0;i<9;i++){
@@ -128,8 +140,12 @@ public class GameBoard {
         return points+cellScore;
     }
 
-    //Getter that used to get one cell base on x position and y position
-
+    /**
+     * Gets the value in one cell
+     * @param row Row of the cell
+     * @param column Column of the cell
+     * @return Returns the cell with it's value
+     */
     public int getValue(int row, int column) {
 
         return gameCells[row][column];

@@ -1,3 +1,7 @@
+/**
+ * This class represents the main menu page. It shows after a user logs in, and allows
+ * the user to navigate to the profile page, play, about us, help, and the rank board.
+ */
 package com.example.finalproject;
 
 import androidx.appcompat.app.AlertDialog;
@@ -26,7 +30,6 @@ public class MenuActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         db = new DatabaseHelper(this);
@@ -45,6 +48,9 @@ public class MenuActivity extends AppCompatActivity {
         menu_score.setTextSize(25);
         menu_score.setTextColor(Color.rgb(255,215,0));
 
+        /**
+         * Sets a listener for the play button. Takes the user to the sudoku game board.
+         */
         menu_play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,6 +61,10 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         * Sets a listener for the rank board button. Shows the ranks of players
+         * based on best scores.
+         */
         menu_rank.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,6 +75,10 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         * Sets a listener for the profile button. Users can edit account information
+         * and sign out here.
+         */
         menu_btn_pro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +89,9 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         * Sets a listener for the about us button.
+         */
         menu_aboutus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,6 +113,9 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         * Sets a listener for the help button.
+         */
         menu_help.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
