@@ -37,8 +37,6 @@ public class SignUpActivity extends AppCompatActivity {
         sp_password = (EditText)findViewById(R.id.txt_apply_password);
         sp_re = (EditText)findViewById(R.id.txt_apply_retype);
         sp_btn_apply = (Button)findViewById(R.id.btn_apply);
-        sp_btn_image = (Button)findViewById(R.id.btn_choose_image);
-        sp_img = (ImageView)findViewById(R.id.img_avatar);
 
         //Create the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

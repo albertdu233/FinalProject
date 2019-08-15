@@ -175,7 +175,7 @@ public class ProfileActivity extends AppCompatActivity {
        save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                User update = new User(newEm, login.getUsername(), newPw, login.getAvatraId(), login.getBestScore());
+                User update = new User(newEm, login.getUsername(), newPw, login.getAvatarId(), login.getBestScore());
                 db.Update(update);
                 Toast.makeText(getApplicationContext(), "Saving...", Toast.LENGTH_SHORT).show();
             }

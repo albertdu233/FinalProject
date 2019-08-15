@@ -7,8 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -16,14 +16,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 public class GameActivity extends AppCompatActivity implements CellGroupFragment.OnFragmentInteractionListener {
     private GameBoard startBoard;
     private GameBoard board;
+    private GameBoard solutionBoard;
     private int clickedGroup;
     private int clickedCellId;
     private TextView clickedCell;
@@ -34,10 +31,10 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
     private Button g_btn_newgame;
     private Button g_btn_solution;
     private User login;
-    private ArrayList<Integer> puzzles =  new ArrayList<>();
-    private ArrayList<Integer> played = new ArrayList<>();
-    private int puzzleid;
+    private TextView showScore;
     private DatabaseHelper db;
+    private SudokuGenerator sk;
+    private int point;
 
 
     @Override
@@ -48,6 +45,7 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
         g_btn_reset= (Button)findViewById(R.id.game_btn_reset);
         g_btn_newgame= (Button)findViewById(R.id.game_btn_newgame);
         g_btn_solution= (Button)findViewById(R.id.game_btn_solution);
+        showScore = (TextView)findViewById(R.id.txt_score);
         // Show the Up button in the action bar.
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -58,30 +56,17 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
         String username = intent.getStringExtra("Username");
         login = db.getUser(username);
 
-        //load puzzles
-
-        puzzles.add(R.raw.s0);
-        puzzles.add(R.raw.s1);
-        puzzles.add(R.raw.s2);
-        puzzles.add(R.raw.s3);
-        puzzles.add(R.raw.s4);
-        puzzles.add(R.raw.s5);
-        puzzles.add(R.raw.s6);
-        puzzles.add(R.raw.s7);
-        puzzles.add(R.raw.s8);
-        puzzles.add(R.raw.s9);
 
         //load game boards
-
-        board = loadGameBoards();
-
-        startBoard = new GameBoard();
-
-
-
+         sk = new SudokuGenerator();
+        solutionBoard = new GameBoard();
+        solutionBoard.copyBoard(sk.fillValues());
+        board = new GameBoard();
+        board.copyBoard(sk.createPuzzle());
         //Copy a board for reset and undo.
-
+        startBoard = new GameBoard();
         startBoard.copyBoard(board.getGameCells());
+
         reset();
 
         //ask the user is he wants to reset the game board, will reset game board based on the copy
@@ -99,6 +84,7 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
                     public void onClick(DialogInterface dialogInterface, int i) {
                         board = new GameBoard();
                         board.copyBoard(startBoard.getGameCells());
+                        point=0;
                         reset();
                     }
                 });
@@ -126,8 +112,16 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        board = loadGameBoards();
+                        sk = new SudokuGenerator();
+                        solutionBoard = new GameBoard();
+                        startBoard = new GameBoard();
+                        board = new GameBoard();
+                        solutionBoard.copyBoard(sk.fillValues());
+                        board.copyBoard(sk.createPuzzle());
                         startBoard.copyBoard(board.getGameCells());
+                        g_btn_reset.setVisibility(View.VISIBLE);
+                        showScore.setVisibility(View.INVISIBLE);
+                        point=0;
                         reset();
                     }
                 });
@@ -148,157 +142,27 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
         g_btn_solution.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(GameActivity.this);
-                builder.setTitle("Showing the solution");
-                builder.setMessage(loadSolution());
-                TextView view = new TextView(GameActivity.this);
-                int point = getScore();
-                view.setText("Your score is: "+point);
-                builder.setView(view);
-                if(login.getBestScore()<point){
+                showScore.setVisibility(View.VISIBLE);
+                point = 0+ getScore();
+                showScore.setText("Your score is: "+point);
+                showScore.setTextSize(35);
+                showScore.setTextColor(Color.YELLOW);
+                showSolution();
+                g_btn_reset.setVisibility(View.INVISIBLE);
+                if(point>login.getBestScore()){
                     login.setBestScore(point);
                     db.Update(login);
                 }
 
-                builder.setPositiveButton("New Game", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        board = loadGameBoards();
-                        startBoard.copyBoard(board.getGameCells());
-                        reset();
-                    }
-                });
-                builder.setNegativeButton("Leave", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        finish();
-                    }
-                });
-                AlertDialog editEm = builder.create();
-                editEm.show();
             }
         });
     }
-
-
-
-
-
-
     //Check if this cell is a preset cell
     private boolean preSet(int group, int cell) {
         int row = ((group)/3)*3 + (cell/3);
         int column = ((group)%3)*3 + ((cell)%3);
         return startBoard.getValue(row, column) != 0;
     }
-
-    //Function that used to load game boards
-    //Boards files are stroed in raw folder as txt file
-    private GameBoard loadGameBoards() {
-
-        //totally 10 puzzles templates, each time one of them will be randomly selected, and then it will be removed from the arraylist
-        //so, until the user play 10 new games, he will not meet a same puzzle.
-
-        int fileId = 0;
-
-        if(puzzles.size()>1){
-            Random rand = new Random();
-            int size = puzzles.size();
-            int n = rand.nextInt(size);
-            fileId=puzzles.get(n);
-            puzzles.remove(n);
-            played.add(fileId);
-            puzzleid = fileId;
-        }
-        else{
-            fileId=puzzles.get(0);
-            puzzles.remove(0);
-            played.add(fileId);
-            puzzles = new ArrayList<>(played);
-            played.clear();
-            puzzleid = fileId;
-        }
-        GameBoard board = new GameBoard();
-        InputStream inputStream = getResources().openRawResource(fileId);
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-        try {
-            String line = bufferedReader.readLine();
-            while (line != null) {
-
-                // read all lines in the board
-                for (int i = 0; i < 9; i++) {
-                    String rowCells[] = line.split(" ");
-                    for (int j = 0; j < 9; j++) {
-                            board.setValue(i, j, Integer.parseInt(rowCells[j]));
-                    }
-                    line = bufferedReader.readLine();
-                }
-                line = bufferedReader.readLine();
-            }
-            bufferedReader.close();
-        } catch (IOException e) {
-            Log.e("GameActivity", e.getMessage());
-        }
-        return board;
-    }
-
-//will load solution based on puzzle that currently showing
-
-    private String loadSolution() {
-        int fileId = 0;
-        switch(puzzleid)
-        {
-            case R.raw.s0 :
-                fileId = R.raw.s0s;
-                break;
-            case R.raw.s1 :
-                fileId = R.raw.s1s;
-                break;
-            case R.raw.s2:
-                fileId = R.raw.s2s;
-                break;
-            case R.raw.s3 :
-                fileId = R.raw.s3s;
-                break;
-            case R.raw.s4 :
-                fileId = R.raw.s4s;
-                break;
-            case R.raw.s5 :
-                fileId = R.raw.s5s;
-                break;
-            case R.raw.s6 :
-                fileId = R.raw.s6s;
-                break;
-            case R.raw.s7 :
-                fileId = R.raw.s7s;
-                break;
-            case R.raw.s8 :
-                fileId = R.raw.s8s;
-                break;
-            case R.raw.s9 :
-                fileId = R.raw.s9s;
-                break;
-            default :
-        }
-
-        String solution = "";
-        InputStream inputStream = getResources().openRawResource(fileId);
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-        try {
-            String line = bufferedReader.readLine();
-            while (line != null) {
-                // read all lines in the board
-                solution = "          "+solution+line+"\n";
-                line = bufferedReader.readLine();
-            }
-            bufferedReader.close();
-        } catch (IOException e) {
-            Log.e("GameActivity", e.getMessage());
-        }
-        return solution;
-    }
-
     //listener for the cell group fragment
     //will get x and y position for the game board to find the cell which the user clicked
     //And then will ask the user to enter a number
@@ -391,7 +255,36 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
         }
     }
 
+    public void showSolution(){
 
+        int cellGroupFragments[] = new int[]{R.id.Fragment0, R.id.Fragment1, R.id.Fragment2, R.id.Fragment3,
+                R.id.Fragment4, R.id.Fragment5, R.id.Fragment6, R.id.Fragment7, R.id.Fragment8};
+        for (int i = 0; i < 9; i++) {
+            CellGroupFragment thisCellGroupFragment = (CellGroupFragment) getSupportFragmentManager().findFragmentById(cellGroupFragments[i]);
+            thisCellGroupFragment.setGroupId(i);
+        }
+        //Display all values from the current board
+
+        CellGroupFragment displayFragment;
+
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                int column = j / 3;
+                int row = i / 3;
+
+                int fragmentNumber = (row * 3) + column;
+                displayFragment = (CellGroupFragment) getSupportFragmentManager().findFragmentById(cellGroupFragments[fragmentNumber]);
+                int groupColumn = j % 3;
+                int groupRow = i % 3;
+
+                int groupPosition = (groupRow * 3) + groupColumn;
+                int currentValue = solutionBoard.getValue(i, j);
+
+                displayFragment.showResult(groupPosition, currentValue, solutionBoard.getValue(i, j), board.getValue(i,j));
+
+            }
+        }
+    }
     //simple function that help calculates score a user get
     public int getScore(){
         int score =0;

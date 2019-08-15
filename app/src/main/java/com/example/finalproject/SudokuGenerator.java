@@ -111,7 +111,6 @@ public class SudokuGenerator
     // matrix
     boolean fillRemaining(int i, int j)
     {
-        //  System.out.println(i+" "+j);
         if (j>=N && i<N-1)
         {
             i = i + 1;
@@ -164,9 +163,6 @@ public class SudokuGenerator
         while (count != 0)
         {
             int cellId = randomGenerator(N*N);
-
-            // System.out.println(cellId);
-            // extract coordinates i  and j
             int i = (cellId/N);
             int j = cellId%9;
             if (j != 0) {
@@ -176,7 +172,6 @@ public class SudokuGenerator
                 i=i-1;
             }
 
-            // System.out.println(i+" "+j);
             if (puzzle[i][j] != 0)
             {
                 count--;
@@ -199,16 +194,5 @@ public class SudokuGenerator
             }
         }
         return copy;
-    }
-    // Print sudoku
-    public void printSudoku(int[][]result)
-    {
-        for (int i = 0; i<N; i++)
-        {
-            for (int j = 0; j<N; j++)
-                System.out.print(result[i][j] + " ");
-            System.out.println();
-        }
-        System.out.println();
     }
 }

@@ -4,6 +4,7 @@ package com.example.finalproject;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -80,13 +81,34 @@ public class CellGroupFragment extends Fragment {
             currentView.setText(String.valueOf(value));
             currentView.setTextColor(Color.BLACK);
             currentView.setTypeface(null, Typeface.BOLD);
+            currentView.setBackgroundColor(Color.WHITE);
         }
         else{
             currentView.setText("");
+            currentView.setTextColor(Color.BLACK);
+            currentView.setTypeface(null, Typeface.BOLD);
+            currentView.setBackgroundColor(Color.WHITE);
         }
     }
 
+    public void showResult(int position, int value, int vs, int vc) {
+        int cells[] = new int[]{R.id.cell0, R.id.cell1, R.id.cell2, R.id.cell3,
+                R.id.cell4, R.id.cell5, R.id.cell6, R.id.cell7, R.id.cell8};
+        TextView currentView = view.findViewById(cells[position]);
 
+        if(vs!=vc){
+            currentView.setText(String.valueOf(value));
+            currentView.setTextColor(Color.BLACK);
+            currentView.setTypeface(null, Typeface.BOLD);
+            currentView.setBackgroundColor(Color.RED);
+        }
+        else{
+            currentView.setText(String.valueOf(value));
+            currentView.setTextColor(Color.BLACK);
+            currentView.setTypeface(null, Typeface.BOLD);
+            currentView.setBackgroundColor(Color.WHITE);
+        }
+    }
 
 //  When called, setup  listener
     @Override

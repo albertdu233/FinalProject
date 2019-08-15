@@ -50,7 +50,7 @@ public class RankActivity extends AppCompatActivity {
                login.getBestScore()+"\n"+"You are No."+rankLogin;
         rankBoard_avatar = (ImageView) findViewById(R.id.rank_avatar) ;
         rankBoard_info = (TextView) findViewById(R.id.txt_rank_name) ;
-        rankBoard_avatar.setImageResource(login.getAvatraId());
+        rankBoard_avatar.setImageResource(login.getAvatarId());
 
         rankBoard_info.setText(detail);
 
@@ -105,7 +105,7 @@ public class RankActivity extends AppCompatActivity {
                     +users.get(position).getEmail()+"\n"+"Score: "+
                     users.get(position).getBestScore()+"\n";
             holder.rankDetail.setText(detail);
-            holder.rankAvatar.setImageResource(users.get(position).getAvatraId());
+            holder.rankAvatar.setImageResource(users.get(position).getAvatarId());
         }
 
 
