@@ -1,10 +1,9 @@
 package com.example.finalproject;
+
 import java.util.ArrayList;
 import java.util.Random;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -15,6 +14,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+<<<<<<< Updated upstream
+
+=======
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+>>>>>>> Stashed changes
+
 
 
 public class GameActivity extends AppCompatActivity implements CellGroupFragment.OnFragmentInteractionListener {
