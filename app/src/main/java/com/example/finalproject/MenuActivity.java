@@ -102,7 +102,7 @@ public class MenuActivity extends AppCompatActivity {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MenuActivity.this);
                 builder.setTitle("Help!");
-                builder.setMessage("Click the pencil to open profile page\nClick play to play sudoku\nClick ank to check leaderboard\n"+
+                builder.setMessage("Click the pencil to open profile page\nClick play to play sudoku\nClick Rank to check leaderboard\n"+
                         "Click About us to see authors\n"+"To play sudoku, each row and column need\nto be filled by different numbers\n" +
                         "And each 3x3 group needs to be filled \n" +
                         "by different number");

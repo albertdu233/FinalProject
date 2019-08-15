@@ -25,7 +25,7 @@ public class SudokuGenerator
     //This function will return a full board which will be save as a solution
     public int[][] fillValues()
     {
-        // Fill the diagonal of sqrN x sqrN matrices
+        // Fill the diagonal of sqrN x sqrN matrices = 3x3
         fillDiagonal();
         // Fill remaining blocks
         fillRemaining(0, sqrN);
@@ -41,20 +41,6 @@ public class SudokuGenerator
             fillBox(i, i);
         }
     }
-
-    //Function that checks if there is a dublicated number in a 3x3 group
-    // Returns false if given 3 x 3 block contains num.
-
-    boolean unUsedInBox(int rowStart, int colStart, int num)
-    {
-        for (int i = 0; i< sqrN; i++)
-            for (int j = 0; j< sqrN; j++)
-                if (mat[rowStart+i][colStart+j]==num)
-                    return false;
-
-        return true;
-    }
-
     // Fill a 3 x 3 matrix with random number
     void fillBox(int row,int col)
     {
@@ -73,6 +59,20 @@ public class SudokuGenerator
             }
         }
     }
+    //Function that checks if there is a dublicated number in a 3x3 group
+    // Returns false if given 3 x 3 block contains num.
+
+    boolean unUsedInBox(int rowStart, int colStart, int num)
+    {
+        for (int i = 0; i< sqrN; i++)
+            for (int j = 0; j< sqrN; j++)
+                if (mat[rowStart+i][colStart+j]==num)
+                    return false;
+
+        return true;
+    }
+
+
 
     // Random number generator from 1-81
     int randomGenerator(int num)
