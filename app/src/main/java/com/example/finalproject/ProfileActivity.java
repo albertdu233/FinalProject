@@ -269,7 +269,27 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
     }
+    private void initializeSpinner() {
+        int index = avatarList.indexOf(login.getAvatarId());
+        final Integer numbers[] = {0,1, 2, 3, 4, 5, 6};
+        ArrayAdapter<Integer> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, numbers);
+        Spinner spinner = findViewById(R.id.avatar_spinner);
+        spinner.setAdapter(arrayAdapter);
+        spinner.setSelection(index);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                int selectedNumber = numbers[i];
+                avatarId = avatarList.get(selectedNumber);
+                avatar.setImageDrawable(getDrawable(avatarId));
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
     /**
      * Initializes a spinner for selecting an avatar.
      */
