@@ -1,5 +1,8 @@
+/**
+ * This class generates the unique sudoku puzzles for gameplay. It starts by
+ * filling in the diagonal 3x3 boxes, and then filling in the remaining cells.
+ */
 package com.example.finalproject;
-
 
 public class SudokuGenerator
 {
@@ -10,9 +13,11 @@ public class SudokuGenerator
     int sqrN; // square root of N
     int hides; // No. Of missing digits
 
-    // Constructor
-    SudokuGenerator()
-    {   //N represents row and column = 9;
+    /**
+     * Default constructor
+     */
+    SudokuGenerator() {
+        //N represents row and column = 9;
         this.N = 9;
         this.hides = 20;
         // Compute square root of N will be = 3

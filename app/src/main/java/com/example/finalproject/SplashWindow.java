@@ -1,3 +1,6 @@
+/**
+ * This class represents the splash page that shows at the start of the application.
+ */
 package com.example.finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
