@@ -1,3 +1,6 @@
+/**
+ * This class is the main login page for the Sudoku application.
+ */
 package com.example.finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,7 +15,6 @@ import android.widget.CheckBox;
 import android.widget.Checkable;
 import android.widget.EditText;
 import android.widget.Toast;
-
 
 public class MainActivity extends AppCompatActivity {
     private DatabaseHelper db;
@@ -56,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
 
         this.getSupportActionBar().setTitle("Sudoku");
 
+        /**
+         * Sets a listener for the login button. Checks credentials against existing
+         * accounts in database. If valid, sends to menu page.
+         */
         m_btnLogin.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -85,6 +91,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         * Sets a listener for the sign up button and sends the user to
+         * the user registration page.
+         */
         m_btnSignup.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
